@@ -13,4 +13,6 @@ Rails.application.routes.draw do
   resources :users, only: [:create]
   resources :meals
   resources :sessions, only: [:create, :destroy]
+  
+  get 'caterers', to: 'caterers#index'
 end
