@@ -40,6 +40,7 @@ let register = async (e) => {
     body: JSON.stringify(body),
     headers: { "Content-Type": "application/json" }
   };
+
   await fetch(url, params)
   .then(response => {
     console.log(response);
@@ -138,6 +139,7 @@ main {
   border-radius: 5px;
   box-shadow: 0 1px 5px -2px rgb(10,10,10);
   padding: 20px;
+  grid-gap: 10px;
 }
 
 .field {
@@ -205,10 +207,6 @@ main {
 
 input {
   padding: 5px;
-}
-
-.authentication-form .button.primary {
-  margin-top: 15px
 }
 
 </style>
