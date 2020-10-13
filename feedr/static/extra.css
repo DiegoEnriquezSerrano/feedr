@@ -1,0 +1,30 @@
+
+#sapper {
+	position: fixed;
+	width: 100vw;
+	height: 100vh;
+	overflow-y: auto;
+	overflow-x: hidden;
+}
+
+html * {
+	box-sizing: border-box;
+}
+
+.primary {
+  color: #e09f3e;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.button.primary {
+  color: #ffffff;
+  background-color: #e09f3e;
+  padding: 10px;
+  border-radius: 5px;
+  border-width: 0;
+}
+
+.button.primary:hover {
+  background-color: #fff3b0;
+}

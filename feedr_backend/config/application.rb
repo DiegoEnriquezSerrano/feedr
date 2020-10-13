@@ -24,16 +24,16 @@ module FeedrBackend
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 6.0
 
-    config.middleware.insert_before 0, Rack::Cors do
-      allow do
-        origins '*'
-        resource '/*',
-          headers: %w(Authorization),
-          methods: :any,
-          expose: %w(Authorization),
-          max_age: 600
-      end
-    end
+    # config.middleware.insert_before 0, Rack::Cors do
+    #   allow do
+    #     origins 'http://localhost:3000'
+    #     resource '/*',
+    #       headers: :any,
+    #       methods: :any,
+    #       credentials: true,
+    #       max_age: 600
+    #   end
+    # end
 
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration can go into files in config/initializers
@@ -44,5 +44,7 @@ module FeedrBackend
     # Middleware like session, flash, cookies can be added back manually.
     # Skip views, helpers and assets when generating a new resource.
     config.api_only = true
+
+    config.middleware.use ActionDispatch::Cookies
   end
 end

@@ -37,6 +37,7 @@ let register = async (e) => {
   let url = "http://localhost:4000/signup";
   let params = {
     method: 'POST',
+    credentials: 'include',
     body: JSON.stringify(body),
     headers: { "Content-Type": "application/json" }
   };
@@ -120,9 +121,23 @@ let toggleCatererSignup = (e) => {
 <style>
 
 main {
+  position: absolute;
+  top: 0;
+  margin: 0;
+  display: grid;
+  align-items: center;
+  justify-items: center;
+  width: 100vw;
+  height: 100%;
+  min-height: 100vh;
+  padding-top: 3rem;
+  overflow: auto;
   background-image: url('/images/SignUpPageBackground.jpg');
   background-attachment: fixed;
-  background-position: top center;
+  background-position: top left;
+  background-size: cover;
+  background-repeat: no-repeat;
+  color: #fdfdfd;
 }
 
 .authentication-form {
@@ -143,70 +158,40 @@ main {
 }
 
 .field {
-  display: grid;
   grid-template-columns: 1fr;
-  grid-auto-flow: row;
-  grid-gap: 5px;
 }
 
 .fields_pair {
-  display: grid;
-  grid-auto-flow: column;
   grid-template-columns: 1fr 1fr;
-  width: 100%;
-  grid-gap: 10px;
 }
 
 .fields_trio {
-  display: grid;
-  grid-auto-flow: column;
   grid-template-columns: 1fr 1fr 1fr;
-  width: 100%;
-  grid-gap: 10px;
 }
 
 label {
   font-size: 1.0rem;
   font-weight: bold;
   font-family: Arial, Helvetica, sans-serif;
-}
-
-main {
-  width: 100vw;
-  height: 100%;
-  min-height: 100vh;
-  background-position: top left;
-  margin: 0;
-  display: grid;
-  background-size: cover;
-  background-repeat: no-repeat;
-  color: #fdfdfd;
-  align-items: center;
-  justify-items: center;
-  position: absolute;
-  top: 0;
-}
-
-.primary {
-  color: #e09f3e;
-  font-weight: bold;
-  text-decoration: none;
-}
-
-.button.primary {
-  color: #ffffff;
-  background-color: #e09f3e;
-  padding: 10px;
-  border-radius: 5px;
-  border-width: 0;
-}
-
-.button.primary:hover {
-  background-color: #fff3b0;
+  display: block;
 }
 
 input {
   padding: 5px;
+  display: block;
+  width: 100%
+}
+
+@media(min-width: 500px) {
+
+  .fields_trio,
+  .fields_pair {
+    display: grid;
+    width: 100%;
+    grid-gap: 10px;
+    grid-auto-flow: column;
+  }
+
 }
 
 </style>
