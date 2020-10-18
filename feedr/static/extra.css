@@ -28,3 +28,10 @@ html * {
 .button.primary:hover {
   background-color: #fff3b0;
 }
+
+.inline-search {
+  display: grid;
+  grid-auto-flow: column;
+  grid-template-columns: 1fr minmax(35px, 33%);
+  grid-gap: 2px;
+}

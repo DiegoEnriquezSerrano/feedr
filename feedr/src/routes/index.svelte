@@ -1,30 +1,52 @@
-<script>
+<script context="module">
 
-import { onMount } from 'svelte';
-
-const getCaterers = async () => {
-  let url = "http://localhost:4000/caterers";
-  let reqParams = { method: 'GET' }
-	await fetch(url, reqParams)
-	  .then(response => {
-			console.log(response)
-		})
+export async function preload(page) {
+  let opts = { method: 'GET', credentials: 'include' }
+  const res = await this.fetch('http://localhost:4000/', opts);
+  const user = await res.json();
+  return { user }
 }
 
-onMount(() => {
-	getCaterers();
+</script>
+
+<script>
+
+import Splash from '../components/Splash.svelte';
+import Home from '../components/Home.svelte';
+import { onMount } from 'svelte';
+
+export let user;
+
+let caterers = [];
+
+$: user;
+$: caterers;
+
+user.error ? user = undefined : user = user.user;
+
+onMount(async () => {
+
+  if (user == undefined || !user.caterer_user) {
+    let res = await fetch('http://localhost:4000/caterers', { method: 'GET', credentials: 'include' })
+    caterers = await res.json();
+  } else if (user.caterer_user) {
+    window.location = '/caterer'
+  }
+
 })
 
 </script>
 
 <svelte:head>
-	<title>Sapper project template</title>
+	<title>Feedr</title>
 </svelte:head>
 
 <main>
-
-  <h1>Please log in to continue!</h1>
-
+  {#if user && user.caterer_user == false}
+    <Home {user} {caterers} />
+  {:else}
+    <Splash />
+  {/if}
 </main>
 
 <style>
@@ -33,25 +55,12 @@ main {
   width: 100vw;
   height: 100%;
   min-height: 100vh;
-  background-image: url('/images/HomePageSplash.jpg');
-  background-position: top left;
   margin: 0;
   display: grid;
-  background-size: cover;
-  background-repeat: no-repeat;
   color: #fdfdfd;
-  border-bottom-left-radius: 40%;
-  border-bottom-right-radius: 40%;
-  align-content: center;
+  align-content: start;
   justify-items: center;
-}
-
-h1 {
-  color: #000000;
-  padding: 20px;
-  border-radius: 5px;
-  background-color: rgba(235,235,235,0.7);
-  box-shadow: 0 0 1px -3px rgba(255,255,255,0.9)
+  grid-auto-flow: row;
 }
 
 </style>

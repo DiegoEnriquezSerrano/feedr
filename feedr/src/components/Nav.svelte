@@ -1,18 +1,33 @@
 <script>
 
-	export let segment;
+  import { onMount } from 'svelte';
+
+  export let segment;
+  export let user;
 
   let menuOpen = false;
 
-  let toggleMenu = () => {
-    menuOpen == false ? menuOpen = true : menuOpen = false;
+  let toggleMenu = () => { menuOpen == false ? menuOpen = true : menuOpen = false }
+
+  let testCookie = async () => {
+
+    let url = "http://localhost:4000/search";
+    let params = { method: 'GET', credentials: 'include' }
+    await fetch(url, params)
+    .then(response => {
+      console.log(response);
+    })
   }
+
+  onMount(async () => {
+    if (!user.error) console.log(user);
+  })
 
 </script>
 
-<nav class:home={segment == undefined}>
+<nav class:home={segment == undefined && user.error !== undefined}>
   <div class="brand">
-    <a href="/home">Feedr</a>
+    <a href="/">Feedr</a>
   </div>
 	<button class="expander " on:click={toggleMenu}>
 		<svg class="icon" width="21px" height="15px" viewBox="0 0 21 15" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -27,9 +42,11 @@
 		</svg>
   </button>
   <ul class:open={menuOpen == true}>
+    {#if user.error}
     <li><a href="/signup">Sign Up</a></li>
     <li><a href="/login">Login</a></li>
-    <li>Search</li>
+    {/if}
+    <li><a href="/search" on:click|preventDefault={testCookie}>Search</a></li>
   </ul>
 </nav>
 
@@ -74,7 +91,7 @@ ul.open {
   display: grid;
   width: 100%;
   position: absolute;
-  background-color: red;
+  background-color: inherit;
   top: 3rem
 }
 
