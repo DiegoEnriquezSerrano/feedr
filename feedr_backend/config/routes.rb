@@ -15,4 +15,6 @@ Rails.application.routes.draw do
   resources :sessions, only: [:create, :destroy]
   
   get 'caterers', to: 'caterers#index'
+  get 'search', to: 'caterers#search'
+  get '/', to: 'caterers#search'
 end
