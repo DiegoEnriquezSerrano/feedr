@@ -16,4 +16,8 @@ class User < ApplicationRecord
   validates :caterer_business_city, presence: true, if: -> (u) { u.caterer_user == true }
   validates :caterer_business_state, presence: true, if: -> (u) { u.caterer_user == true }
   validates :zip_code, presence: true, if: -> (u) { u.caterer_user == true }
+  validates :caterer_business_cover_image, allow_blank: true, format: {
+    with: %r{\.(gif|jpg|png)\z}i,
+    message: 'must be a URL for GIF, JPG or PNG image.'
+}
 end

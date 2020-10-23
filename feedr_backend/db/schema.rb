@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_10_11_220851) do
+ActiveRecord::Schema.define(version: 2020_10_22_125622) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -32,6 +32,7 @@ ActiveRecord::Schema.define(version: 2020_10_11_220851) do
     t.integer "servings_minimum"
     t.decimal "price_minimum"
     t.string "cover_image"
+    t.text "description"
     t.index ["user_id"], name: "index_meals_on_user_id"
   end
 
@@ -51,6 +52,7 @@ ActiveRecord::Schema.define(version: 2020_10_11_220851) do
     t.string "caterer_business_city"
     t.string "caterer_business_state"
     t.integer "zip_code"
+    t.string "caterer_business_cover_image"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
