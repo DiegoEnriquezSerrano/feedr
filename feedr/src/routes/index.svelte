@@ -26,11 +26,14 @@ user.error ? user = undefined : user = user.user;
 
 onMount(async () => {
 
-  if (user == undefined || !user.caterer_user) {
-    let res = await fetch('http://localhost:4000/caterers', { method: 'GET', credentials: 'include' })
+  if (user == undefined) {
+    return;
+  } else if (user != undefined && !user.caterer_user) {
+    let res = await fetch('http://localhost:4000/caterers', 
+                  { method: 'GET', credentials: 'include' })
     caterers = await res.json();
   } else if (user.caterer_user) {
-    window.location = '/caterer'
+    window.location = '/caterer';
   }
 
 })

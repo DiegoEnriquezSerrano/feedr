@@ -19,6 +19,7 @@ main {
   top: 0;
   margin: 0;
   display: grid;
+  align-content: baseline;
   align-items: center;
   justify-items: center;
   width: 100vw;
@@ -26,11 +27,6 @@ main {
   min-height: 100vh;
   padding-top: 3rem;
   overflow: auto;
-  background-image: url('/images/SignUpPageBackground.jpg');
-  background-attachment: fixed;
-  background-position: top left;
-  background-size: cover;
-  background-repeat: no-repeat;
   color: #fdfdfd;
 }
 

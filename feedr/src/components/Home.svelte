@@ -25,8 +25,9 @@ export let caterers;
   display: grid;
   width: 100%;
   grid-auto-flow: row;
-  grid-gap: 20px;
-  padding: 20px;
+  grid-gap: 10px;
+  padding: 10px;
+  max-width: 1000px;
 }
 
 </style>

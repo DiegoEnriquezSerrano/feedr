@@ -1,27 +1,27 @@
 <script>
 
-  import { onMount } from 'svelte';
-
   export let segment;
   export let user;
 
   let menuOpen = false;
 
-  let toggleMenu = () => { menuOpen == false ? menuOpen = true : menuOpen = false }
+  let toggleMenu = () => { menuOpen == false ? menuOpen = true : menuOpen = false };
 
-  let testCookie = async () => {
+  let close = () => { menuOpen = false };
 
-    let url = "http://localhost:4000/search";
-    let params = { method: 'GET', credentials: 'include' }
-    await fetch(url, params)
-    .then(response => {
-      console.log(response);
-    })
+  let logout = async () => {
+    let req = await fetch('http://localhost:4000/logout', { method: 'GET', credentials: 'include' });
+    let data = await req.json();
+    if (data.message === "Logout successful") {
+      window.location = "/";
+    }
   }
 
-  onMount(async () => {
-    if (!user.error) console.log(user);
-  })
+  let getSearch = async () => {
+    let req = await fetch('http://localhost:4000/search', { method: 'GET', credentials: 'include' });
+    let data = await req.json();
+    console.log(data);
+  }
 
 </script>
 
@@ -43,10 +43,13 @@
   </button>
   <ul class:open={menuOpen == true}>
     {#if user.error}
-    <li><a href="/signup">Sign Up</a></li>
-    <li><a href="/login">Login</a></li>
+      <li><a href="/signup" on:click={close}>Sign Up</a></li>
+      <li><a href="/login" on:click={close}>Login</a></li>
     {/if}
-    <li><a href="/search" on:click|preventDefault={testCookie}>Search</a></li>
+    <li><a href="/search" on:click|preventDefault={getSearch}>Search</a></li>
+    {#if !user.error}
+      <li><a href="/logout" on:click|preventDefault={logout}>Logout</a></li>
+    {/if}
   </ul>
 </nav>
 
@@ -97,7 +100,7 @@ ul.open {
 
 li {
   display: inline-block;
-  padding: 0px;
+  padding: 10px 0;
   margin: 0;
 }
 

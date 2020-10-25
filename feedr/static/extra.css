@@ -11,22 +11,67 @@ html * {
 	box-sizing: border-box;
 }
 
+body {
+  background-color: #efefee;
+  font: normal normal normal 1.0rem/1.1rem  'Libre Franklin Medium', 'Arial', 'sans-serif';
+}
+
+/* Libre Franklin - latin */
+@font-face {
+  font-family: 'Libre Franklin Bold';
+  font-style: normal;
+  font-weight: 700;
+  src: local('Libre Franklin'), local('LibreFranklin-Normal'),
+       url('./fonts/LibreFranklinBold.ttf') format('truetype'), /* Safari, Android, iOS */
+       url('./fonts/LibreFranklinBoldItalic.otf') format('otf'); /* Legacy iOS */
+}
+
+/* Libre Franklin - latin */
+@font-face {
+  font-family: 'Libre Franklin';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Libre Franklin'), local('LibreFranklin-Normal'),
+       url('./fonts/LibreFranklinLight.ttf') format('truetype'), /* Safari, Android, iOS */
+       url('./fonts/LibreFranklinLight.otf') format('otf'); /* Legacy iOS */
+}
+
+/* Libre Franklin - latin */
+@font-face {
+  font-family: 'Libre Franklin Medium';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Libre Franklin'), local('LibreFranklin-Normal'),
+       url('./fonts/LibreFranklinMedium.ttf') format('truetype'), /* Safari, Android, iOS */
+       url('./fonts/LibreFranklinMedium.otf') format('otf'); /* Legacy iOS */
+}
+
 .primary {
   color: #e09f3e;
   font-weight: bold;
   text-decoration: none;
 }
 
-.button.primary {
-  color: #ffffff;
-  background-color: #e09f3e;
+.button {
   padding: 10px;
   border-radius: 5px;
   border-width: 0;
+  font-size: 1.1rem;
+}
+
+.button.primary {
+  color: #ffffff;
+  background-color: #e09f3e;
+  background-image: linear-gradient(to top, rgb(224, 159, 62), rgba(224,190,140,0.6));
 }
 
 .button.primary:hover {
   background-color: #fff3b0;
+}
+
+.button.secondary {
+  color: #e09f3e;
+  background-color: #efefef;
 }
 
 .inline-search {

@@ -18,8 +18,8 @@
   width: 100%;
   height: 85vh;
   background-image: url('/images/HomePageSplash.jpg');
-  border-bottom-left-radius: 50%;
-  border-bottom-right-radius: 50%;
+  border-bottom-left-radius: 350px;
+  border-bottom-right-radius: 350px;
   background-position: top left;
   background-size: cover;
   background-repeat: no-repeat;
@@ -27,7 +27,7 @@
   grid-template-areas:
    '.'
    'e'
-   '.'
+   '.';
 }
 
 .element {
@@ -43,7 +43,9 @@
     grid-template-areas:
       '. . .'
       '. e .'
-      '. . .'
+      '. . .';
+    border-bottom-left-radius: 50%;
+    border-bottom-right-radius: 50%;
   }
 
   .element {
