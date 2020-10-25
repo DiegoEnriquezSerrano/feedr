@@ -1,14 +1,34 @@
 class CaterersController < ApplicationController
-  before_action :authenticate_user, only: [:search]
-
   def index
     @caterers = User.where(caterer_user: true)
-    render json: @caterers.as_json(only: [:id, :caterer_business_name, :caterer_business_cover_image])
+    render json: @caterers.as_json(only: [
+      :id,
+      :caterer_business_name,
+      :caterer_business_cover_image,
+      :caterer_business_address,
+      :caterer_business_city,
+      :caterer_business_state,
+      :zip_code
+    ])
+  end
+
+  def show
+    if User.where(caterer_user: true).where(id: params[:id]).exists?
+      @caterer = User.find(params[:id])
+      render json: @caterer.as_json(except: [
+        :email,
+        :first_name,
+        :last_name,
+        :created_at,
+        :updated_at
+      ])
+    else
+      head(:not_found)
+    end
   end
 
   def search
-    header = JWT.decode(cookies.signed[:jwt], ENV['DEVISE_JWT_SECRET_KEY'] )
-    @user = User.find(header[0]['user_id'])
+    @user = User.find(authenticate_user[0]['user_id'])
     render json: { user: @user.as_json(only: [:id, :first_name, :caterer_user]) }
   end
 end

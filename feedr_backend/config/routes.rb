@@ -3,7 +3,6 @@ Rails.application.routes.draw do
               path: '',
               path_names: {
                 sign_in: 'login',
-                sign_out: 'logout',
                 registration: 'signup'
               },
               controllers: {
@@ -12,9 +11,13 @@ Rails.application.routes.draw do
               }
   resources :users, only: [:create]
   resources :meals
-  resources :sessions, only: [:create, :destroy]
+  resources :sessions, only: [:create]
+  resources :caterers, only: [:index, :show]
+
+  devise_scope :user do
+    get "/logout", to: "sessions#end"
+  end
   
-  get 'caterers', to: 'caterers#index'
   get 'search', to: 'caterers#search'
   get '/', to: 'caterers#search'
 end

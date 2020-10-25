@@ -25,7 +25,7 @@ describe Meal do
       @meal.price_minimum = 0.01
       expect(@meal).to be_valid
     end
-    
+
     it "requires meal serving size to be at least 1" do
       @meal.servings_minimum = -1
       expect(@meal).to be_invalid
