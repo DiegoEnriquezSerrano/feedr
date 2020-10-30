@@ -2,12 +2,36 @@
 
 export let meal;
 
+let mealQuantity;
+let mealId;
+
+let addMealToOrder = async () => {
+  let url = "http://localhost:4000/order_meals";
+  let body = {
+    meal_id: mealId.value,
+    total_servings: mealQuantity
+  };
+  let params = {
+  method: 'POST',
+  credentials: 'include',
+  body: JSON.stringify(body),
+  headers: { "Content-Type": "application/json" }
+  };
+  const req = await fetch(url, params)
+  console.log(req);
+}
+
 </script>
 
 <div class="meal">
   <div class="cover_image" style="background-image: url('http://localhost:3000/uploads/{meal.cover_image}')"></div>
   <h3>{meal.name}</h3>
   <p>{meal.description}</p>
+  <div class="meal_actions">
+    <input type="hidden" value="{meal.id}" bind:this={mealId}>
+    <input type="number" placeholder="{meal.servings_minimum}" bind:value={mealQuantity}>
+    <button on:click={addMealToOrder}>Add to Order</button>
+  </div>
 </div>
 
 <style>

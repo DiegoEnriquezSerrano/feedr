@@ -48,6 +48,7 @@
     {/if}
     <li><a href="/search" on:click|preventDefault={getSearch}>Search</a></li>
     {#if !user.error}
+      <li><a href="/order/new">Current Order</a></li>
       <li><a href="/logout" on:click|preventDefault={logout}>Logout</a></li>
     {/if}
   </ul>

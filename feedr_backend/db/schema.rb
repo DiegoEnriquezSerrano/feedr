@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_10_22_125622) do
+ActiveRecord::Schema.define(version: 2020_10_30_142707) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -36,6 +36,32 @@ ActiveRecord::Schema.define(version: 2020_10_22_125622) do
     t.index ["user_id"], name: "index_meals_on_user_id"
   end
 
+  create_table "order_meals", force: :cascade do |t|
+    t.bigint "order_id", null: false
+    t.bigint "meal_id"
+    t.integer "total_servings"
+    t.decimal "subtotal"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.decimal "unit_price"
+    t.index ["meal_id"], name: "index_order_meals_on_meal_id"
+    t.index ["order_id"], name: "index_order_meals_on_order_id"
+  end
+
+  create_table "orders", force: :cascade do |t|
+    t.bigint "customer_id", null: false
+    t.bigint "caterer_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.boolean "submitted"
+    t.date "submitted_on"
+    t.boolean "abandoned"
+    t.date "abandoned_on"
+    t.decimal "subtotal"
+    t.index ["caterer_id"], name: "index_orders_on_caterer_id"
+    t.index ["customer_id"], name: "index_orders_on_customer_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -58,4 +84,8 @@ ActiveRecord::Schema.define(version: 2020_10_22_125622) do
   end
 
   add_foreign_key "meals", "users"
+  add_foreign_key "order_meals", "meals"
+  add_foreign_key "order_meals", "orders"
+  add_foreign_key "orders", "users", column: "caterer_id"
+  add_foreign_key "orders", "users", column: "customer_id"
 end

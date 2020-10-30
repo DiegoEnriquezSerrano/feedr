@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :orders
   devise_for :users,
               path: '',
               path_names: {
@@ -10,9 +11,11 @@ Rails.application.routes.draw do
                 registrations: 'registrations'
               }
   resources :users, only: [:create]
-  resources :meals
   resources :sessions, only: [:create]
   resources :caterers, only: [:index, :show]
+  resources :meals
+  resources :order_meals
+  resource  :new_order, only: [:show]
 
   devise_scope :user do
     get "/logout", to: "sessions#end"

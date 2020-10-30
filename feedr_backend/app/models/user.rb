@@ -10,6 +10,7 @@ class User < ApplicationRecord
   validates :caterer_user, inclusion: { in: [ true, false] }
 
   has_many :meals, dependent: :delete_all
+  has_many :orders
 
   validates :caterer_business_name, presence: true, if: -> (u) { u.caterer_user == true }
   validates :caterer_business_address, presence: true, if: -> (u) { u.caterer_user == true }

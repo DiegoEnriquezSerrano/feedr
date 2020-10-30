@@ -3,6 +3,7 @@ require 'rails_helper'
 describe "the signin process", js: true do
   it "signs me in" do
     visit 'http://localhost:3000/login'
+    sleep 3; byebug
     within(".authentication-form") do
       fill_in 'email', with: 'jbravo@cn.com'
       fill_in 'password', with: 'password'

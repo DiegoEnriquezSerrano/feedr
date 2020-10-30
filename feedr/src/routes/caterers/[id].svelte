@@ -12,22 +12,10 @@
 <script>
 
   import Meal from '../../components/caterers/Meal.svelte';
-  import { onMount } from 'svelte';
 
   export let caterer;
 
-  let meals = [];
-
-  $: meals;
-
-  onMount(async () => {
-    if (caterer.error) {
-      return;
-    } else {
-      const req = await fetch(`http://localhost:4000/meals?caterer=${caterer.id}`);
-      meals = await req.json();
-    }
-  });
+  let meals = caterer.meals;
 
 </script>
 

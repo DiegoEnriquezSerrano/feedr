@@ -15,13 +15,19 @@ class CaterersController < ApplicationController
   def show
     if User.where(caterer_user: true).where(id: params[:id]).exists?
       @caterer = User.find(params[:id])
-      render json: @caterer.as_json(except: [
-        :email,
-        :first_name,
-        :last_name,
-        :created_at,
-        :updated_at
-      ])
+      render json: @caterer.as_json(
+        include: { meals: { except: [
+          :created_at,
+          :updated_at,
+          :user_id
+        ]}},
+        except: [
+          :email,
+          :first_name,
+          :last_name,
+          :created_at,
+          :updated_at
+        ])
     else
       head(:not_found)
     end
