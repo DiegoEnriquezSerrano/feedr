@@ -4,6 +4,7 @@
   "version": "0.0.1",
   "scripts": {
     "dev": "sapper dev",
+    "test": "sapper dev '--port' '3050'",
     "build": "sapper build --legacy",
     "export": "sapper export --legacy",
     "start": "node __sapper__/build"
