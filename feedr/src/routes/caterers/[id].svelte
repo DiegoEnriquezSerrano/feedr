@@ -42,12 +42,15 @@
 
 main {
   padding-top: 3em;
+  display: grid;
+  justify-items: center;
 }
 
 .hero {
   height: 200px;
   background-size: cover;
   background-position: center;
+  width: 100vw;
 }
 
 .meals {

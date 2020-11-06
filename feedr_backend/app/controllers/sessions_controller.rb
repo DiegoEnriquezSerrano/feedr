@@ -20,13 +20,17 @@ class SessionsController < Devise::SessionsController
   end
 
   def end
-    @user = User.find(authenticate_user[0]['user_id'])
-    access_token = JWT.encode( { 
-      user_id: @user.id,
-      exp: (Time.now - 2.minutes).to_i },
-      ENV['DEVISE_JWT_SECRET_KEY'], 'HS256' )
-    cookies.signed[:jwt] = { value: access_token, httponly: true }
-    render json: { message: 'Logout successful' }, status: :ok
+    if !authenticate_user.nil?
+      @user = User.find(authenticate_user[0]['user_id'])
+      access_token = JWT.encode( { 
+        user_id: @user.id,
+        exp: (Time.now - 2.minutes).to_i },
+        ENV['DEVISE_JWT_SECRET_KEY'], 'HS256' )
+      cookies.signed[:jwt] = { value: access_token, httponly: true }
+      render json: { message: 'Logout successful' }, status: :ok
+    else
+      render json: { error: 'Unauthorized request' }, status: :unauthorized
+    end
   end
 
   private

@@ -12,7 +12,7 @@
   let logout = async () => {
     let req = await fetch('http://localhost:4000/logout', { method: 'GET', credentials: 'include' });
     let data = await req.json();
-    if (data.message === "Logout successful") {
+    if (data.message && data.message === "Logout successful") {
       window.location = "/";
     }
   }
@@ -48,7 +48,11 @@
     {/if}
     <li><a href="/search" on:click|preventDefault={getSearch}>Search</a></li>
     {#if !user.error}
-      <li><a href="/order/new" on:click={close}>Current Order</a></li>
+      <li>
+        <a href="/order/new" on:click={close}>
+          <img class="icon" src="/icons/shopping_bag.svg" alt="Current Order">
+        </a>
+      </li>
       <li><a href="/logout" on:click|preventDefault={logout}>Logout</a></li>
     {/if}
   </ul>
@@ -73,7 +77,7 @@ nav {
   top: 0;
   width: 100vw;
   box-sizing: border-box;
-  padding: 10px;
+  padding: 0 10px;
   height: 3rem;
 }
 
@@ -100,9 +104,9 @@ ul.open {
 }
 
 li {
-  display: inline-block;
-  padding: 10px 0;
   margin: 0;
+  display: grid;
+  align-content: center;
 }
 
 nav a {
@@ -123,8 +127,16 @@ button svg g {
   justify-self: end;
 }
 
-@media(min-width: 500px) {
+.icon {
+  height: 100%;
+  max-height: calc(3em - 30px);
+}
 
+.expander .icon {
+  max-height: 100%;
+}
+
+@media(min-width: 500px) {
   .expander {
     display: none;
   }
@@ -139,7 +151,6 @@ button svg g {
     font-size: 1.4rem;
     height: 3.4rem;
   }
-
 }
 
 </style>

@@ -30,7 +30,7 @@ let addMealToOrder = async () => {
   <div class="meal_actions">
     <input type="hidden" value="{meal.id}" bind:this={mealId}>
     <input type="number" placeholder="{meal.servings_minimum}" bind:value={mealQuantity}>
-    <button on:click={addMealToOrder}>Add to Order</button>
+    <button class="button primary" on:click={addMealToOrder}>Add to Order</button>
   </div>
 </div>
 
@@ -41,6 +41,7 @@ h3 {
   line-height: 1.2rem;
   vertical-align: bottom;
   font-weight: bold;
+  grid-area: mn;
 }
 
 p {
@@ -48,6 +49,7 @@ p {
   padding: 0 10px 10px 10px;
   font-size: 0.9rem;
   color: rgb(35,35,35);
+  grid-area: md;
 }
 
 .meal {
@@ -64,6 +66,33 @@ p {
   height: 130px;
   background-size: cover;
   background-position: center;
+  grid-area: ci;
+}
+
+.meal_actions {
+  padding: 10px;
+  text-align: center;
+  width: 100%;
+  grid-area: ma;
+}
+
+.button.primary {
+  font-size: 0.8rem;
+}
+
+@media(min-width: 600px) {
+  .meal  {
+    display: grid;
+    grid-template-areas: 
+      'ci  mn  mn'
+      'ci  md  md'
+      'ci  ma  ma';
+    grid-template-columns: 33% 33% 33%;
+  }
+
+  .cover_image {
+    height: 100%;
+  }
 }
 
 </style>

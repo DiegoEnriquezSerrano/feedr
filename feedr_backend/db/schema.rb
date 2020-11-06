@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_10_30_142707) do
+ActiveRecord::Schema.define(version: 2020_11_03_141314) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -53,11 +53,13 @@ ActiveRecord::Schema.define(version: 2020_10_30_142707) do
     t.bigint "caterer_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.boolean "submitted"
+    t.boolean "submitted", default: false
     t.date "submitted_on"
-    t.boolean "abandoned"
+    t.boolean "abandoned", default: false
     t.date "abandoned_on"
     t.decimal "subtotal"
+    t.boolean "accepted", default: false
+    t.date "accepted_on"
     t.index ["caterer_id"], name: "index_orders_on_caterer_id"
     t.index ["customer_id"], name: "index_orders_on_customer_id"
   end

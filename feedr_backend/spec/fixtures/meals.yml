@@ -8,3 +8,24 @@ jackfruit_carnitas:
   price_minimum: 40.00,
   cover_image: 'img1.jpg'
   user_id: 1
+  id: 1
+
+poblano_picasso_burger:
+  name: 'Poblano Picasso Burger'
+  description: "An all-beef patty topped with a spicy poblano salsa verde, fresh tomatoes, and Monterey Jack cheese. A Picasso never tasted so good. I mean, we're assuming his paintings tasted terrible. Anyway, this burger is delicious."
+  ingredients: "White onions, Jalapeno pepper, Beef, Monterey Jack cheese, Green leaf lettuce, Tomato, Tomatillos, Poblano pepper, Butter, Whole wheat bread"
+  servings_minimum: 4,
+  price_minimum: 35.00,
+  cover_image: 'img2.jpg'
+  user_id: 3
+  id: 2
+
+sweet_home_avocado_burger:
+  name: 'Sweet Home Avocado Burger'
+  description: "This delicious burger - an all beef patty coated in sweet lime sauce and topped with fresh avocado slices, sweet onions, tomatoes, peppers, sweet stevia leaves and served on a whole wheat bun - is perfect on a hot summer day. Think fresh crunchy veggies meets sweet limeade. Now add a burger."
+  ingredients: "Groud beef, Bell pepper, Vidalia onion, Roma tomato, Avocado, Stevia leaves, Lime, Honey, Olive oil, Salt, Pepper, Whole wheat buns"
+  servings_minimum: 5,
+  price_minimum: 35.00,
+  cover_image: 'img3.jpg'
+  user_id: 3
+  id: 3

@@ -16,3 +16,15 @@ customer:
   email: 'diegoenriquez91@gmail.com'
   caterer_user: false
   id: 2
+
+second_caterer:
+  first_name: 'Bob'
+  last_name: 'Belcher'
+  email: 'bob@bobsburgers.com'
+  caterer_user: true
+  caterer_business_name: "Bob's Burgers"
+  caterer_business_address: '1812 S Des Plaines St'
+  caterer_business_city: 'Chicago'
+  caterer_business_state: 'IL'
+  zip_code: 60616
+  id: 3

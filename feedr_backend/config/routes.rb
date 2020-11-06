@@ -15,7 +15,7 @@ Rails.application.routes.draw do
   resources :caterers, only: [:index, :show]
   resources :meals
   resources :order_meals
-  resource  :new_order, only: [:show]
+  resource  :new_order, only: [:show, :create]
 
   devise_scope :user do
     get "/logout", to: "sessions#end"
