@@ -1,12 +1,14 @@
 <script>
 
+import { SERVER_PORT, CLIENT_PORT } from '../../javascript/functions.js';
+
 export let meal;
 
 let mealQuantity;
 let mealId;
 
 let addMealToOrder = async () => {
-  let url = "http://localhost:4000/order_meals";
+  let url = `http://localhost:${SERVER_PORT}/order_meals`;
   let body = {
     meal_id: mealId.value,
     total_servings: mealQuantity
@@ -24,7 +26,7 @@ let addMealToOrder = async () => {
 </script>
 
 <div class="meal">
-  <div class="cover_image" style="background-image: url('http://localhost:3000/uploads/{meal.cover_image}')"></div>
+  <div class="cover_image" style="background-image: url('http://localhost:{CLIENT_PORT}/uploads/{meal.cover_image}')"></div>
   <h3>{meal.name}</h3>
   <p>{meal.description}</p>
   <div class="meal_actions">

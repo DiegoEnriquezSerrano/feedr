@@ -1,8 +1,10 @@
 <script context="module">
 
+import { SERVER_PORT, CLIENT_PORT} from '../javascript/functions.js';
+
 export async function preload(page) {
   let opts = { method: 'GET', credentials: 'include' }
-  const res = await this.fetch('http://localhost:4000/', opts);
+  const res = await this.fetch(`http://localhost:${SERVER_PORT}/`, opts);
   const user = await res.json();
   return { user }
 }
@@ -29,7 +31,7 @@ onMount(async () => {
   if (user == undefined) {
     return;
   } else if (user != undefined && !user.caterer_user) {
-    let res = await fetch('http://localhost:4000/caterers', 
+    let res = await fetch(`http://localhost:${SERVER_PORT}/caterers`, 
                   { method: 'GET', credentials: 'include' })
     caterers = await res.json();
   } else if (user.caterer_user) {

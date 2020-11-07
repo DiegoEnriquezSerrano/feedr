@@ -1,11 +1,13 @@
 <script>
 
+import { SERVER_PORT, CLIENT_PORT } from '../../javascript/functions.js';
+
 export let order_meal;
 
 </script>
 
 <div class="order-meal">
-  <div class="cover-image" style="background-image: url('http://localhost:3000/uploads/{order_meal.meal.cover_image}');">
+  <div class="cover-image" style="background-image: url('http://localhost:{CLIENT_PORT}/uploads/{order_meal.meal.cover_image}');">
   </div>
   <div class="order-meal-details">
     <a class="order-meal-name" href="/meal/{order_meal.meal.id}">{order_meal.meal.name}</a>

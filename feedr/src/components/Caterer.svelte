@@ -1,5 +1,7 @@
 <script>
 
+import { SERVER_PORT, CLIENT_PORT } from '../javascript/functions.js';
+
 export let caterer;
 
 let loadCaterer = (id) => {
@@ -11,7 +13,7 @@ let loadCaterer = (id) => {
 <div class="caterer" on:click={loadCaterer(caterer.id)}>
   <div
     class="caterer-cover-img"
-    style="background-image: url('http://localhost:3000/uploads/{caterer.caterer_business_cover_image}')"
+    style="background-image: url('http://localhost:{CLIENT_PORT}/uploads/{caterer.caterer_business_cover_image}')"
     alt="{caterer.caterer_business_name} cover image"></div>
   <div class="caterer-specs">
     {caterer.caterer_business_name}

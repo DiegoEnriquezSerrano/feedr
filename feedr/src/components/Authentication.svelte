@@ -2,6 +2,7 @@
 
 import { onMount } from 'svelte';
 import requests from '../javascript/requests.js';
+import { SERVER_PORT, CLIENT_PORT } from '../javascript/functions.js';
 
 export let page;
 
@@ -50,7 +51,7 @@ let authenticate = (page) => {
 
 </script>
 
-  <form class="authentication-form" action="http://localhost:4000/{page}" method="POST">
+  <form class="authentication-form" action="http://localhost:{SERVER_PORT}/{page}" method="POST">
     {#if page === 'signup'}
       <h3><b>Create your account</b></h3>
       <!-- <button class="button secondary" on:click|preventDefault={toggleCatererSignup}>

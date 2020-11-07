@@ -1,5 +1,7 @@
 <script>
 
+  import { SERVER_PORT, CLIENT_PORT } from '../javascript/functions.js';
+
   export let segment;
   export let user;
 
@@ -10,7 +12,7 @@
   let close = () => { menuOpen = false };
 
   let logout = async () => {
-    let req = await fetch('http://localhost:4000/logout', { method: 'GET', credentials: 'include' });
+    let req = await fetch(`http://localhost:${SERVER_PORT}/logout`, { method: 'GET', credentials: 'include' });
     let data = await req.json();
     if (data.message && data.message === "Logout successful") {
       window.location = "/";
@@ -18,7 +20,7 @@
   }
 
   let getSearch = async () => {
-    let req = await fetch('http://localhost:4000/search', { method: 'GET', credentials: 'include' });
+    let req = await fetch(`http://localhost:${SERVER_PORT}/search`, { method: 'GET', credentials: 'include' });
     let data = await req.json();
     console.log(data);
   }

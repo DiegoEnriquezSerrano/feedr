@@ -13,7 +13,7 @@ describe "logging in an existing user", js: true do
   }
 
   it "fills out the login form and submits" do
-    visit 'http://localhost:3000/login'
+    visit 'http://localhost:3050/login'
     within(".authentication-form") do
       fill_in 'email', with: 'jbravo@cn.com'
       fill_in 'password', with: 'password'

@@ -1,8 +1,10 @@
 <script context="module">
 
+  import { SERVER_PORT, CLIENT_PORT} from '../../javascript/functions.js';
+
 	export async function preload(page, session) {
 		const { id } = page.params;
-		const res = await this.fetch(`http://localhost:4000/caterers/${id}`);
+		const res = await this.fetch(`http://localhost:${SERVER_PORT}/caterers/${id}`);
 		const caterer = await res.json();
 		return { caterer };
   }
@@ -27,7 +29,7 @@
   {#if !caterer.error}
     <section
       class="hero"
-      style="background-image: url('http://localhost:3000/uploads/{caterer.caterer_business_cover_image}')">
+      style="background-image: url('http://localhost:{CLIENT_PORT}/uploads/{caterer.caterer_business_cover_image}')">
     </section>
 
     <section class="meals">
