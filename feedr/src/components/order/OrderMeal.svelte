@@ -1,8 +1,8 @@
 <script>
 
-import { SERVER_PORT, CLIENT_PORT } from '../../javascript/functions.js';
+  import { SERVER_PORT, CLIENT_PORT } from '../../javascript/functions.js';
 
-export let order_meal;
+  export let order_meal;
 
 </script>
 
@@ -49,4 +49,5 @@ ul {
   background-position: center;
   background-size: cover;
 }
+
 </style>

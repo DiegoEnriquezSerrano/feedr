@@ -1,13 +1,13 @@
 <script context="module">
 
-  import { SERVER_PORT, CLIENT_PORT} from '../../javascript/functions.js';
+import { SERVER_PORT, CLIENT_PORT } from '../../javascript/functions.js';
 
-	export async function preload(page, session) {
-		const { id } = page.params;
-		const res = await this.fetch(`http://localhost:${SERVER_PORT}/caterers/${id}`);
-		const caterer = await res.json();
-		return { caterer };
-  }
+export async function preload(page, session) {
+  const { id } = page.params;
+  const res = await this.fetch(`http://localhost:${SERVER_PORT}/caterers/${id}`);
+  const caterer = await res.json();
+  return { caterer };
+}
 
 </script>
 

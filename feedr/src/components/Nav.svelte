@@ -55,7 +55,11 @@
           <img class="icon" src="/icons/shopping_bag.svg" alt="Current Order">
         </a>
       </li>
-      <li><a href="/logout" on:click|preventDefault={logout}>Logout</a></li>
+      <li>
+        <a href="/logout" on:click|preventDefault={logout}>
+          <img class="icon" src="/icons/logout.svg" alt="Logout">
+        </a>
+      </li>
     {/if}
   </ul>
 </nav>

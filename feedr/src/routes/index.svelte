@@ -1,6 +1,6 @@
 <script context="module">
 
-import { SERVER_PORT, CLIENT_PORT} from '../javascript/functions.js';
+import { SERVER_PORT, CLIENT_PORT } from '../javascript/functions.js';
 
 export async function preload(page) {
   let opts = { method: 'GET', credentials: 'include' }
@@ -13,32 +13,27 @@ export async function preload(page) {
 
 <script>
 
-import Splash from '../components/Splash.svelte';
-import Home from '../components/Home.svelte';
-import { onMount } from 'svelte';
+  import Splash from '../components/Splash.svelte';
+  import Home from '../components/Home.svelte';
+  import { onMount } from 'svelte';
 
-export let user;
+  export let user;
 
-let caterers = [];
+  let caterers = [];
 
-$: user;
-$: caterers;
+  user.error ? user = undefined : user = user.user;
 
-user.error ? user = undefined : user = user.user;
-
-onMount(async () => {
-
-  if (user == undefined) {
-    return;
-  } else if (user != undefined && !user.caterer_user) {
-    let res = await fetch(`http://localhost:${SERVER_PORT}/caterers`, 
-                  { method: 'GET', credentials: 'include' })
-    caterers = await res.json();
-  } else if (user.caterer_user) {
-    window.location = '/caterer';
-  }
-
-})
+  onMount(async () => {
+    if (user == undefined) {
+      return;
+    } else if (user != undefined && !user.caterer_user) {
+      let opts = { method: 'GET', credentials: 'include' }
+      let res = await fetch(`http://localhost:${SERVER_PORT}/caterers`, opts)
+      caterers = await res.json();
+    } else if (user.caterer_user) {
+      window.location = '/caterer';
+    }
+  })
 
 </script>
 

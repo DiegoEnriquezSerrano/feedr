@@ -1,6 +1,6 @@
 <script>
 
-import Authentication from '../components/Authentication.svelte';
+  import Authentication from '../components/Authentication.svelte';
 
 </script>
 

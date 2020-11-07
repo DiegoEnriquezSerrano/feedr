@@ -1,8 +1,10 @@
 <script context="module">
 
+import { SERVER_PORT, CLIENT_PORT } from '../../javascript/functions.js';
+
 export async function preload(page) {
   let opts = { method: 'GET', credentials: 'include' }
-  const res = await this.fetch('http://localhost:4000/new_order', opts);
+  const res = await this.fetch(`http://localhost:${SERVER_PORT}/new_order`, opts);
   const new_order = await res.json();
   return { new_order }
 }
@@ -11,12 +13,12 @@ export async function preload(page) {
 
 <script>
 
-  import OrderMeal from '../../components/order/OrderMeal.svelte'
+  import OrderMeal from '../../components/order/OrderMeal.svelte';
 
-  export let new_order
+  export let new_order;
 
   let submitOrder = async () => {
-    let url = `http://localhost:4000/new_order`;
+    let url = `http://localhost:${SERVER_PORT}/new_order`;
     let params = {
       method: 'POST',
       credentials: 'include',
@@ -26,10 +28,15 @@ export async function preload(page) {
     const req = await fetch(url, params);
     console.log(req);
     if (req.status === 201) {
-      window.location.href = "http://localhost:3000";
+      window.location.href = `http://localhost:${CLIENT_PORT}`;
     }
   }
+
 </script>
+
+<svelte:head>
+	<title>Feedr | New Order</title>
+</svelte:head>
 
 <main>
   <section class="new-order">
@@ -46,11 +53,14 @@ export async function preload(page) {
         <p></p>
       </div>
     {/if}
-    <button class="button primary" on:click={submitOrder} disabled={new_order.order_meals.length < 1}>Submit</button>
+    <button class="button primary" on:click={submitOrder} disabled={new_order.order_meals.length < 1}>
+      Submit
+    </button>
   </section>
 </main>
 
 <style>
+
 main {
   width: 100vw;
   height: 100%;

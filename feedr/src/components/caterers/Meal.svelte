@@ -1,27 +1,26 @@
 <script>
 
-import { SERVER_PORT, CLIENT_PORT } from '../../javascript/functions.js';
+  import { SERVER_PORT, CLIENT_PORT } from '../../javascript/functions.js';
 
-export let meal;
+  export let meal;
 
-let mealQuantity;
-let mealId;
+  let mealQuantity;
+  let mealId;
 
-let addMealToOrder = async () => {
-  let url = `http://localhost:${SERVER_PORT}/order_meals`;
-  let body = {
-    meal_id: mealId.value,
-    total_servings: mealQuantity
-  };
-  let params = {
-  method: 'POST',
-  credentials: 'include',
-  body: JSON.stringify(body),
-  headers: { "Content-Type": "application/json" }
-  };
-  const req = await fetch(url, params)
-  console.log(req);
-}
+  let addMealToOrder = async () => {
+    let url = `http://localhost:${SERVER_PORT}/order_meals`;
+    let body = {
+      meal_id: mealId.value,
+      total_servings: mealQuantity
+    };
+    let params = {
+    method: 'POST',
+    credentials: 'include',
+    body: JSON.stringify(body),
+    headers: { "Content-Type": "application/json" }
+    };
+    const req = await fetch(url, params);
+  }
 
 </script>
 

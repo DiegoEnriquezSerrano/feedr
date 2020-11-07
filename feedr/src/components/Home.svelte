@@ -1,8 +1,8 @@
 <script>
 
-import Caterer from './Caterer.svelte';
+  import Caterer from './Caterer.svelte';
 
-export let caterers;
+  export let caterers;
 
 </script>
 
@@ -11,7 +11,6 @@ export let caterers;
     <Caterer {caterer} />
   {/each}
 </section>
-
 
 <style>
 

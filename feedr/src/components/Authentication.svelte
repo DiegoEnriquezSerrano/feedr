@@ -1,53 +1,53 @@
 <script>
 
-import { onMount } from 'svelte';
-import requests from '../javascript/requests.js';
-import { SERVER_PORT, CLIENT_PORT } from '../javascript/functions.js';
+  import { onMount } from 'svelte';
+  import requests from '../javascript/requests.js';
+  import { SERVER_PORT, CLIENT_PORT } from '../javascript/functions.js';
 
-export let page;
+  export let page;
 
-let firstName;
-let lastName;
-let email;
-let password;
-let passwordConfirmation;
-let catererBusinessName;
-let catererBusinessAddress;
-let catererBusinessCity;
-let catererBusinessState;
-let zipCode;
-let body = {};
+  let firstName;
+  let lastName;
+  let email;
+  let password;
+  let passwordConfirmation;
+  let catererBusinessName;
+  let catererBusinessAddress;
+  let catererBusinessCity;
+  let catererBusinessState;
+  let zipCode;
+  let body = {};
 
-let catererSignup = false;
+  let catererSignup = false;
 
-let toggleCatererSignup = (e) => {
-  catererSignup == false ? catererSignup = true : catererSignup = false;
-}
-
-let authenticate = (page) => {
-  if (page === 'login') {
-    body = { email, password }
-
-  } else if (page === 'signup') {
-    body = {
-      user: {
-        first_name: firstName,
-        last_name: lastName,
-        email,
-        password,
-        password_confirmation: passwordConfirmation,
-        caterer_user: catererSignup,
-        caterer_business_name: catererBusinessName ? catererBusinessName.value : null,
-        caterer_business_address: catererBusinessAddress ? catererBusinessAddress.value : null,
-        caterer_business_city: catererBusinessCity ? catererBusinessCity.value : null,
-        caterer_business_state: catererBusinessState ? catererBusinessState.value : null,
-        zip_code: zipCode ? zipCode.value : null
-      }
-    }
+  let toggleCatererSignup = (e) => {
+    catererSignup == false ? catererSignup = true : catererSignup = false;
   }
 
-  requests.authenticate(page, body);
-}
+  let authenticate = (page) => {
+    if (page === 'login') {
+      body = { email, password }
+
+    } else if (page === 'signup') {
+      body = {
+        user: {
+          first_name: firstName,
+          last_name: lastName,
+          email,
+          password,
+          password_confirmation: passwordConfirmation,
+          caterer_user: catererSignup,
+          caterer_business_name: catererBusinessName ? catererBusinessName.value : null,
+          caterer_business_address: catererBusinessAddress ? catererBusinessAddress.value : null,
+          caterer_business_city: catererBusinessCity ? catererBusinessCity.value : null,
+          caterer_business_state: catererBusinessState ? catererBusinessState.value : null,
+          zip_code: zipCode ? zipCode.value : null
+        }
+      }
+    }
+
+    requests.authenticate(page, body);
+  }
 
 </script>
 

@@ -1,12 +1,12 @@
 <script>
 
-import { SERVER_PORT, CLIENT_PORT } from '../javascript/functions.js';
+  import { SERVER_PORT, CLIENT_PORT } from '../javascript/functions.js';
 
-export let caterer;
+  export let caterer;
 
-let loadCaterer = (id) => {
-  window.location = `/caterers/${id}`;
-}
+  let loadCaterer = (id) => {
+    window.location = `/caterers/${id}`;
+  }
 
 </script>
 

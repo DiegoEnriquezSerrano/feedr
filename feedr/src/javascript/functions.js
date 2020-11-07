@@ -1,11 +1,11 @@
 function port(location) {
-  let currentPort;
-  typeof process !== 'undefined' ? currentPort = process.env.PORT : currentPort = window.location.port;
+  let port;
+  typeof process !== 'undefined' ? port = process.env.PORT : port = window.location.port;
 
   if (location === "SERVER") {
-    return Number(currentPort) + 1000;
+    return Number(port) + 1000;
   } else if (location === "CLIENT") {
-    return currentPort;
+    return port;
   } else {
     throw "This is not a valid location";
   }
