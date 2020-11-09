@@ -7,7 +7,7 @@ class OrderMeal < ApplicationRecord
 
   validates :meal_id, presence: true
   validates :total_servings, numericality: { only_integer: true, greater_than_or_equal_to: 1 }
-  validate :validate_meal_belongs_to_order_caterer
+  validate :validate_order_minimum_is_reached, :validate_meal_belongs_to_order_caterer
 
   def unit_price
     if persisted?
@@ -21,14 +21,6 @@ class OrderMeal < ApplicationRecord
     unit_price * total_servings
   end
 
-  def validate_order_minimum_is_reached(servings)
-    if servings < meal.servings_minimum
-      return false
-    else
-      return true
-    end
-  end
-
   private
   def set_unit_price
     self[:unit_price] = unit_price
@@ -38,9 +30,16 @@ class OrderMeal < ApplicationRecord
     self[:subtotal] = subtotal * total_servings
   end
 
+  def validate_order_minimum_is_reached
+    unless total_servings.to_i >= meal.servings_minimum.to_i
+      errors.add(:order_meal, 'Order minimum not reached')
+      throw :abort
+    end
+  end
+
   def validate_meal_belongs_to_order_caterer
     unless order.caterer == meal.user
-      errors.add(:base, 'Does not belong to current order')
+      errors.add(:order_meal, 'Does not belong to current order')
       throw :abort
     end
   end
