@@ -1,26 +1,35 @@
 <script>
 
+  import { onMount } from 'svelte';
   import { SERVER_PORT, CLIENT_PORT } from '../../javascript/functions.js';
 
   export let meal;
 
   let mealQuantity;
   let mealId;
+  let inBag;
+
+  $: mealQuantity;
 
   let addMealToOrder = async () => {
+
     let url = `http://localhost:${SERVER_PORT}/order_meals`;
     let body = {
       meal_id: mealId.value,
       total_servings: mealQuantity
     };
     let params = {
-    method: 'POST',
-    credentials: 'include',
-    body: JSON.stringify(body),
-    headers: { "Content-Type": "application/json" }
+      method: 'POST',
+      credentials: 'include',
+      body: JSON.stringify(body),
+      headers: { "Content-Type": "application/json" }
     };
     const req = await fetch(url, params);
   }
+
+  onMount(() => {
+    meal.in_current_order > 0 ? mealQuantity = meal.in_current_order : mealQuantity = null;
+  });
 
 </script>
 
@@ -30,8 +39,20 @@
   <p>{meal.description}</p>
   <div class="meal_actions">
     <input type="hidden" value="{meal.id}" bind:this={mealId}>
-    <input type="number" placeholder="{meal.servings_minimum}" bind:value={mealQuantity}>
-    <button class="button primary" on:click={addMealToOrder}>Add to Order</button>
+    <input
+      type="number"
+      placeholder="Order minimum: {meal.servings_minimum}"
+      min={meal.servings_minimum}
+      bind:value={mealQuantity}>
+    <button class="button primary" on:click={addMealToOrder}>
+      {#if mealQuantity == meal.in_current_order && meal.in_current_order !== 0}
+        Current order
+      {:else if meal.in_current_order < meal.servings_minimum}
+        Add to order
+      {:else if mealQuantity !== meal.in_current_order}
+        Update order
+      {/if}
+    </button>
   </div>
 </div>
 

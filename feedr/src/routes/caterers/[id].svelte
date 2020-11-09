@@ -4,9 +4,11 @@ import { SERVER_PORT, CLIENT_PORT } from '../../javascript/functions.js';
 
 export async function preload(page, session) {
   const { id } = page.params;
-  const res = await this.fetch(`http://localhost:${SERVER_PORT}/caterers/${id}`);
-  const caterer = await res.json();
-  return { caterer };
+  const catererRes = await this.fetch(`http://localhost:${SERVER_PORT}/caterers/${id}`);
+  const caterer = await catererRes.json();
+  const currentOrderRes = await this.fetch(`http://localhost:${SERVER_PORT}/current_order`, { credentials: 'include' });
+  const currentOrder = await currentOrderRes.json();
+  return { caterer, currentOrder };
 }
 
 </script>
@@ -16,8 +18,15 @@ export async function preload(page, session) {
   import Meal from '../../components/caterers/Meal.svelte';
 
   export let caterer;
+  export let currentOrder;
 
-  let meals = caterer.meals;
+  let mealsInBag;
+  let meals = caterer.meals.map(m => {
+    if (mealsInBag = currentOrder.order_meals.find(e => e.meal_id == m.id)) {
+      m.in_current_order = mealsInBag.total_servings;
+    } else { m.in_current_order = 0 }
+    return m;
+  });
 
 </script>
 

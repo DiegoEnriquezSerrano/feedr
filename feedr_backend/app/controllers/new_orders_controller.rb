@@ -44,9 +44,28 @@ class NewOrdersController < ApplicationController
       if !@order.order_meals.empty?
         @order.update(submitted: true, submitted_on: Time.now)
         render json: @order.as_json, status: :created
+        return
       end
     else
       render json: { error: 'Unauthorized request' }, status: :unauthorized
+    end
+  end
+
+  def quantities
+    if !authenticate_user.nil?
+      @order = current_order
+      render json: @order.as_json(
+        include: {
+          order_meals: { only: [
+            :total_servings,
+            :meal_id
+          ]}
+        },
+        only: [
+          :customer_id,
+          :caterer_id,
+          :id
+      ])
     end
   end
 end

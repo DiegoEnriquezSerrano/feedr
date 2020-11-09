@@ -14,23 +14,9 @@ export async function preload(page) {
 <script>
 
   import OrderMeal from '../../components/order/OrderMeal.svelte';
+  import requests from '../../javascript/requests.js'; 
 
   export let new_order;
-
-  let submitOrder = async () => {
-    let url = `http://localhost:${SERVER_PORT}/new_order`;
-    let params = {
-      method: 'POST',
-      credentials: 'include',
-      headers: { "Content-Type": "application/json" }
-    };
-
-    const req = await fetch(url, params);
-    console.log(req);
-    if (req.status === 201) {
-      window.location.href = `http://localhost:${CLIENT_PORT}`;
-    }
-  }
 
 </script>
 
@@ -43,7 +29,7 @@ export async function preload(page) {
     {#each new_order.order_meals as order_meal}
       <OrderMeal {order_meal} />
     {/each}
-    {#if new_order.order_meals.length > 1}
+    {#if new_order.order_meals.length >= 1}
       <div class="new-order-details">
         Subtotal: ${new_order.subtotal}
       </div>
@@ -53,7 +39,7 @@ export async function preload(page) {
         <p></p>
       </div>
     {/if}
-    <button class="button primary" on:click={submitOrder} disabled={new_order.order_meals.length < 1}>
+    <button class="button primary" on:click={requests.submitOrder} disabled={new_order.order_meals.length < 1}>
       Submit
     </button>
   </section>

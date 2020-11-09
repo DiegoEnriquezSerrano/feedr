@@ -2,6 +2,7 @@ require 'rails_helper'
 
 describe Meal do
   fixtures :users, :meals
+  
   context 'submitting a meal' do
     before(:each) { 
       @user = User.find(users(:caterer).id)

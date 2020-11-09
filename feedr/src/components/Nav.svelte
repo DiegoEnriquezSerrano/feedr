@@ -52,12 +52,12 @@
     {#if !user.error}
       <li>
         <a href="/order/new" on:click={close}>
-          <img class="icon" src="/icons/shopping_bag.svg" alt="Current Order">
+          <img class="icon" src="/icons/shopping_bag.svg" alt="Current Order"> Order
         </a>
       </li>
       <li>
         <a href="/logout" on:click|preventDefault={logout}>
-          <img class="icon" src="/icons/logout.svg" alt="Logout">
+          <img class="icon" src="/icons/logout.svg" alt="Logout"> Logout
         </a>
       </li>
     {/if}
@@ -140,6 +140,19 @@ button svg g {
 
 .expander .icon {
   max-height: 100%;
+}
+
+li a {
+  vertical-align: middle;
+  display: grid;
+  grid-auto-flow: column;
+  justify-items: end;
+  justify-content: end;
+  align-items: center;
+  height: 1.75rem;
+  padding: 2px;
+  text-shadow: none;
+  grid-gap: 5px;
 }
 
 @media(min-width: 500px) {

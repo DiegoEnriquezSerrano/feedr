@@ -26,6 +26,7 @@
   grid-auto-flow: column;
   grid-template-columns: minmax(30%, 300px) 60%;
   color: black;
+  grid-gap: 5px;
 }
 
 .order-meal-details {
@@ -43,6 +44,10 @@ ul {
   list-style: none;
   padding: 0;
   margin: 5px 0;
+}
+
+li {
+  color: rgb(75,75,75);
 }
 
 .cover-image {

@@ -23,4 +23,5 @@ Rails.application.routes.draw do
   
   get 'search', to: 'caterers#search'
   get '/', to: 'caterers#search'
+  get '/current_order', to: 'new_orders#quantities'
 end

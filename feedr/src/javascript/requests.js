@@ -21,6 +21,21 @@ let authenticate = async (type, body) => {
   window.location.href = `http://localhost:${CLIENT_PORT}`;
 }
 
+let submitOrder = async () => {
+  let url = `http://localhost:${SERVER_PORT}/new_order`;
+  let params = {
+    method: 'POST',
+    credentials: 'include',
+    headers: { "Content-Type": "application/json" }
+  };
+
+  const req = await fetch(url, params);
+  if (req.status === 201) {
+    window.location.href = `http://localhost:${CLIENT_PORT}`;
+  }
+}
+
 export default {
   authenticate,
+  submitOrder,
 }
