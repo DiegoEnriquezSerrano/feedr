@@ -15,10 +15,8 @@ class OrderMealsController < ApplicationController
     @order.updated_at = Time.now
     if @order.save && @order_meal.save
       render json: @order.as_json
-    elsif @order_meal.errors.any?
-      render json: { errors: @order_meal.errors }, status: :forbidden
-    else
-      render json: { errors: @order.errors }, status: :forbidden
+    else 
+      render json: { errors: @order_meal.errors || @order.errors }, status: :forbidden
     end
   end
 

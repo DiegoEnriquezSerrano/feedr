@@ -1,35 +1,9 @@
 <script>
 
-  import { onMount } from 'svelte';
-  import { SERVER_PORT, CLIENT_PORT } from '../../javascript/functions.js';
+  import { CLIENT_PORT } from '../../javascript/functions.js';
+  import OrderWidget from '../OrderWidget.svelte';
 
   export let meal;
-
-  let mealQuantity;
-  let mealId;
-  let inBag;
-
-  $: mealQuantity;
-
-  let addMealToOrder = async () => {
-
-    let url = `http://localhost:${SERVER_PORT}/order_meals`;
-    let body = {
-      meal_id: mealId.value,
-      total_servings: mealQuantity
-    };
-    let params = {
-      method: 'POST',
-      credentials: 'include',
-      body: JSON.stringify(body),
-      headers: { "Content-Type": "application/json" }
-    };
-    const req = await fetch(url, params);
-  }
-
-  onMount(() => {
-    meal.in_current_order > 0 ? mealQuantity = meal.in_current_order : mealQuantity = null;
-  });
 
 </script>
 
@@ -37,23 +11,7 @@
   <div class="cover_image" style="background-image: url('http://localhost:{CLIENT_PORT}/uploads/{meal.cover_image}')"></div>
   <h3>{meal.name}</h3>
   <p>{meal.description}</p>
-  <div class="meal_actions">
-    <input type="hidden" value="{meal.id}" bind:this={mealId}>
-    <input
-      type="number"
-      placeholder="Order minimum: {meal.servings_minimum}"
-      min={meal.servings_minimum}
-      bind:value={mealQuantity}>
-    <button class="button primary" on:click={addMealToOrder}>
-      {#if mealQuantity == meal.in_current_order && meal.in_current_order !== 0}
-        Current order
-      {:else if meal.in_current_order < meal.servings_minimum}
-        Add to order
-      {:else if mealQuantity !== meal.in_current_order}
-        Update order
-      {/if}
-    </button>
-  </div>
+  <OrderWidget {meal} />
 </div>
 
 <style>
@@ -89,17 +47,6 @@ p {
   background-size: cover;
   background-position: center;
   grid-area: ci;
-}
-
-.meal_actions {
-  padding: 10px;
-  text-align: center;
-  width: 100%;
-  grid-area: ma;
-}
-
-.button.primary {
-  font-size: 0.8rem;
 }
 
 @media(min-width: 600px) {

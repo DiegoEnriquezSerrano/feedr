@@ -13,8 +13,8 @@
     <a class="order-meal-name" href="/meal/{order_meal.meal.id}">{order_meal.meal.name}</a>
     <ul>
       <li>Servings: {order_meal.total_servings}</li>
-      <li>Serving price: ${order_meal.unit_price}</li>
-      <li>Subtotal: ${order_meal.subtotal}</li>
+      <li>Serving price: ${Number(order_meal.unit_price).toFixed(2)}</li>
+      <li>Subtotal: ${Number(order_meal.subtotal).toFixed(2)}</li>
     </ul>
   </div>
 </div>

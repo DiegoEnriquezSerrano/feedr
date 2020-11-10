@@ -2,7 +2,8 @@
 require 'spec_helper'
 
 ENV['RAILS_ENV'] ||= 'test'
-ENV['CUSTOMER_JWT'] ||= 'eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxfQ.8omL6PuZyC-JKtutfNN9UP4Ohvy-AlcBKDf9p36R5Uk'
+ENV['CATERER_JWT'] ||= 'eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxfQ.8omL6PuZyC-JKtutfNN9UP4Ohvy-AlcBKDf9p36R5Uk'
+ENV['CUSTOMER_JWT'] ||= 'eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoyfQ.8YrTImpypL2yp-rsKHuc6QNyIVvkXs28FI9ZWPaijuU'
 
 require File.expand_path('../../config/environment', __FILE__)
 # Prevent database truncation if the environment is production

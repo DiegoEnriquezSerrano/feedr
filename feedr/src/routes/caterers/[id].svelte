@@ -20,6 +20,8 @@ export async function preload(page, session) {
   export let caterer;
   export let currentOrder;
 
+  console.log(currentOrder.order_meals);
+
   let mealsInBag;
   let meals = caterer.meals.map(m => {
     if (mealsInBag = currentOrder.order_meals.find(e => e.meal_id == m.id)) {

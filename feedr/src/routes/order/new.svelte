@@ -31,7 +31,7 @@ export async function preload(page) {
     {/each}
     {#if new_order.order_meals.length >= 1}
       <div class="new-order-details">
-        Subtotal: ${new_order.subtotal}
+        Subtotal: ${Number(new_order.subtotal).toFixed(2)}
       </div>
     {:else}
       <div class="empty-order-message">
