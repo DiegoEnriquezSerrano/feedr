@@ -36,7 +36,7 @@ class CaterersController < ApplicationController
   def search
     if !authenticate_user.nil?
       @user = User.find(authenticate_user[0]['user_id'])
-      render json: { user: @user.as_json(only: [:id, :first_name, :caterer_user]) }
+      render json: { user: @user.as_json(only: [:id, :first_name, :caterer_user]) }, status: :ok
     else
       render json: { error: 'Unauthorized request' }, status: :unauthorized
     end

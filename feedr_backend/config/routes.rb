@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-  resources :orders
   devise_for :users,
               path: '',
               path_names: {
@@ -14,7 +13,8 @@ Rails.application.routes.draw do
   resources :sessions, only: [:create]
   resources :caterers, only: [:index, :show]
   resources :meals
-  resources :order_meals
+  resources :orders
+  resources :order_meals, only: [:create]
   resource  :new_order, only: [:show, :create]
 
   devise_scope :user do

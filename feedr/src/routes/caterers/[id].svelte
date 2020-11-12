@@ -5,9 +5,10 @@ import { SERVER_PORT, CLIENT_PORT } from '../../javascript/functions.js';
 export async function preload(page, session) {
   const { id } = page.params;
   const catererRes = await this.fetch(`http://localhost:${SERVER_PORT}/caterers/${id}`);
-  const caterer = await catererRes.json();
   const currentOrderRes = await this.fetch(`http://localhost:${SERVER_PORT}/current_order`, { credentials: 'include' });
-  const currentOrder = await currentOrderRes.json();
+  let caterer = false, currentOrder = { order_meals: [] };
+  if (catererRes.status == 200) caterer = await catererRes.json();
+  if (currentOrderRes.status == 200) currentOrder = await currentOrderRes.json();
   return { caterer, currentOrder };
 }
 
@@ -20,15 +21,17 @@ export async function preload(page, session) {
   export let caterer;
   export let currentOrder;
 
-  console.log(currentOrder.order_meals);
-
   let mealsInBag;
-  let meals = caterer.meals.map(m => {
-    if (mealsInBag = currentOrder.order_meals.find(e => e.meal_id == m.id)) {
-      m.in_current_order = mealsInBag.total_servings;
-    } else { m.in_current_order = 0 }
-    return m;
-  });
+  let meals;
+
+  if (caterer) {
+    meals = caterer.meals.map(m => {
+      if (mealsInBag = currentOrder.order_meals.find(e => e.meal_id == m.id)) {
+        m.in_current_order = mealsInBag.total_servings;
+      } else { m.in_current_order = 0 }
+      return m;
+    });
+  };
 
 </script>
 
@@ -37,7 +40,7 @@ export async function preload(page, session) {
 </svelte:head>
 
 <main>
-  {#if !caterer.error}
+  {#if caterer}
     <section
       class="hero"
       style="background-image: url('http://localhost:{CLIENT_PORT}/uploads/{caterer.caterer_business_cover_image}')">

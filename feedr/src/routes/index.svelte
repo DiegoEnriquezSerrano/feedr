@@ -3,11 +3,11 @@
 import { SERVER_PORT, CLIENT_PORT } from '../javascript/functions.js';
 
 export async function preload(page) {
-  let opts = { method: 'GET', credentials: 'include' }
-  const res = await this.fetch(`http://localhost:${SERVER_PORT}/`, opts);
-  const user = await res.json();
-  return { user }
-}
+  let user = false;
+  const res = await this.fetch(`http://localhost:${SERVER_PORT}/`, { method: 'GET', credentials: 'include' });
+  if (res.status == 200) user = await res.json();
+  return { user };
+};
 
 </script>
 
@@ -21,19 +21,17 @@ export async function preload(page) {
 
   let caterers = [];
 
-  user.error ? user = undefined : user = user.user;
+  if (user) user = user.user;
 
   onMount(async () => {
-    if (user == undefined) {
-      return;
-    } else if (user != undefined && !user.caterer_user) {
-      let opts = { method: 'GET', credentials: 'include' }
-      let res = await fetch(`http://localhost:${SERVER_PORT}/caterers`, opts)
+    if (user && !user.caterer_user) {
+      let opts = { method: 'GET', credentials: 'include' };
+      let res = await fetch(`http://localhost:${SERVER_PORT}/caterers`, opts);
       caterers = await res.json();
-    } else if (user.caterer_user) {
+    } else if (user && user.caterer_user) {
       window.location = '/caterer';
-    }
-  })
+    };
+  });
 
 </script>
 

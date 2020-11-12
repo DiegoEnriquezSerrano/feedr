@@ -27,7 +27,7 @@
 
 </script>
 
-<nav class:home={segment == undefined && user.error !== undefined}>
+<nav class:home={segment == undefined && !user}>
   <div class="brand">
     <a href="/">Feedr</a>
   </div>
@@ -44,12 +44,12 @@
 		</svg>
   </button>
   <ul class:open={menuOpen == true}>
-    {#if user.error}
+    {#if !user}
       <li><a href="/signup" on:click={close}>Sign Up</a></li>
       <li><a href="/login" on:click={close}>Login</a></li>
     {/if}
     <li><a href="/search" on:click|preventDefault={getSearch}>Search</a></li>
-    {#if !user.error}
+    {#if user}
       <li>
         <a href="/order/new" on:click={close}>
           <img class="icon" src="/icons/shopping_bag.svg" alt="Current Order"> Order

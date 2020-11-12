@@ -3,7 +3,8 @@
   import Caterer from './Caterer.svelte';
 
   export let caterers;
-
+  export let user;
+  
 </script>
 
 <section class="caterers">

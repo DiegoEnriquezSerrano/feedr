@@ -28,14 +28,7 @@ RSpec.describe "NewOrders", type: :request do
         @customer = User.find(users(:customer).id)
         @caterer = User.find(users(:caterer).id)
         @meal = Meal.where(user_id: @caterer.id).last
-        @order = Order.new(
-          customer: @customer,
-          caterer: @caterer,
-          submitted: false,
-          abandoned: false,
-          submitted_on: nil,
-          abandoned_on: nil
-        )
+        @order = Order.new(customer: @customer, caterer: @caterer)
         @order_meal = OrderMeal.new(order: @order, meal: @meal, total_servings: @meal.servings_minimum)
         @order.save && @order_meal.save
         post new_order_path
@@ -64,14 +57,7 @@ RSpec.describe "NewOrders", type: :request do
         @customer = User.find(users(:customer).id)
         @caterer = User.find(users(:caterer).id)
         @meal = Meal.where(user_id: @caterer.id).last
-        @order = Order.new(
-          customer: @customer,
-          caterer: @caterer,
-          submitted: false,
-          abandoned: false,
-          submitted_on: nil,
-          abandoned_on: nil
-        )
+        @order = Order.new(customer: @customer, caterer: @caterer)
         @order_meal = OrderMeal.new(order: @order, meal: @meal, total_servings: @meal.servings_minimum)
         @order.save && @order_meal.save
       }

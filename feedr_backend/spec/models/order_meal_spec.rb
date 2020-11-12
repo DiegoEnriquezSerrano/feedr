@@ -9,14 +9,7 @@ describe OrderMeal do
       @caterer = User.find(users(:caterer).id)
       @meal = Meal.where(user_id: @caterer.id).last
       @second_meal = Meal.where(user_id: users(:second_caterer).id).last
-      @order = Order.new(
-        customer: @customer,
-        caterer: @caterer,
-        submitted: false,
-        abandoned: false,
-        submitted_on: nil,
-        abandoned_on: nil
-      )
+      @order = Order.new(customer: @customer, caterer: @caterer)
       @order_meal = OrderMeal.new(order: @order, meal: @meal, total_servings: @meal.servings_minimum)
     }
 
