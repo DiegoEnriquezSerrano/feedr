@@ -7,6 +7,7 @@
 
   let mealQuantity;
   let mealId;
+  let userLoggedIn = false;
 
   $: mealQuantity;
 
@@ -31,36 +32,49 @@
     });
   };
 
+  onMount(() => {
+    if (localStorage.getItem('feedrUser')) {
+      userLoggedIn = JSON.parse(localStorage.getItem('feedUser'));
+    };
+  })
+
 </script>
 
 <div class="meal_actions">
-  <input type="hidden" value="{meal.id}" bind:this={mealId}>
-  <div class="order-widget">
-    <div class="dialer">
-      <button on:click={increment}>+</button>
-      <button on:click={decrement}>–</button>
+  {#if userLoggedIn !== false}
+    <input type="hidden" value="{meal.id}" bind:this={mealId}>
+    <div class="order-widget">
+      <div class="dialer">
+        <button on:click={increment}>+</button>
+        <button on:click={decrement}>–</button>
+      </div>
+      <input
+        type="number"
+        placeholder="{meal.servings_minimum}"
+        min="{meal.servings_minimum}"
+        size="4" max="9999"
+        bind:value={mealQuantity}>
+      <span>
+        ${(mealQuantity*Number(meal.price_minimum/meal.servings_minimum)).toFixed(2)}
+      </span>
     </div>
-    <input
-      type="number"
-      placeholder="{meal.servings_minimum}"
-      min="{meal.servings_minimum}"
-      size="4" max="9999"
-      bind:value={mealQuantity}>
-    <span>
-      ${(mealQuantity*Number(meal.price_minimum/meal.servings_minimum)).toFixed(2)}
-    </span>
-  </div>
-  <button class="button primary" on:click={addMealToOrder}>
-    {#if mealQuantity == meal.in_current_order && meal.in_current_order !== 0}
-      Current order
-    {:else if meal.in_current_order < meal.servings_minimum}
-      Add to order
-    {:else if mealQuantity !== meal.in_current_order}
-      Update order
-    {/if}
-  </button>
-  <button class="button delete">  
-  </button>
+    <button
+      class="button primary" 
+      disabled={mealQuantity > 9999 ||
+                mealQuantity < meal.servings_minimum ||
+                mealQuantity == meal.in_current_order}
+      on:click={addMealToOrder}>
+      {#if mealQuantity == meal.in_current_order && meal.in_current_order !== 0}
+        Current order
+      {:else if meal.in_current_order < meal.servings_minimum}
+        Add to order
+      {:else if mealQuantity !== meal.in_current_order}
+        Update order
+      {/if}
+    </button>
+    <button class="button delete">  
+    </button>
+  {/if}
 </div>
 
 <style>
@@ -128,6 +142,11 @@ input[type="number"] {
   font-size: 0.8rem;
   display: grid;
   align-content: center;
+}
+
+.button.primary[disabled] {
+  opacity: 0.7;
+  background-color: lightgray;
 }
 
 .button.delete {
