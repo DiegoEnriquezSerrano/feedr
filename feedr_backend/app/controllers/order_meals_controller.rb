@@ -7,14 +7,12 @@ class OrderMealsController < ApplicationController
       if @order.caterer_id.nil?
         @order.caterer_id = @meal.user_id
       end
-      !@order.order_meals.where(meal_id: order_params[:meal_id]).empty? ? 
-        @order_meal = OrderMeal.where(order_id: @order.id).where(meal_id: order_params[:meal_id]).last :
-        @order_meal = @order.order_meals.new(order_params)
+      @order_meal = OrderMeal.find_by(order: @order.id, meal: @meal.id) || @order.order_meals.new(order_params)
       @order_meal.total_servings = order_params[:total_servings]
       @order.updated_at = Time.now
       if @order.save && @order_meal.save
         render json: @order.as_json, status: :created
-      else 
+      else
         render json: { errors: @order_meal.errors || @order.errors }, status: :forbidden
       end
     else
