@@ -22,6 +22,16 @@ RSpec.describe "OrderMeals", type: :request do
         expect(response).to have_http_status(:created)
       end
 
+      it 'it can update order quantity' do
+        post order_meals_path, params: { order_meal: { meal_id: '1', total_servings: '5' } }
+        expect(Order.last.order_meals.find_by(meal_id: 1).total_servings).to eq(5)
+        first_submission_id = Order.last.id
+        post order_meals_path, params: { order_meal: { meal_id: '1', total_servings: '7' } }
+        expect(Order.last.order_meals.find_by(meal_id: 1).total_servings).to eq(7)
+        second_submission_id = Order.last.id
+        expect(first_submission_id).to eq(second_submission_id)
+      end
+
       it 'it is not ok if order meal servings dont reach required minimum' do
         post order_meals_path, params: { order_meal: { meal_id: '1', total_servings: '3' } }
         expect(response).to have_http_status(:forbidden)

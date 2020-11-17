@@ -9,6 +9,7 @@ class Order < ApplicationRecord
 
   has_many :order_meals, dependent: :destroy
   before_save :set_subtotal
+  before_save :update_timestamp
 
   def subtotal
     order_meals.collect{ |order_meal| order_meal.valid? ? order_meal.unit_price*order_meal.total_servings : 0}.sum
@@ -17,5 +18,9 @@ class Order < ApplicationRecord
   private
   def set_subtotal
     self[:subtotal] = subtotal
+  end
+
+  def update_timestamp
+    self[:updated_at] = Time.now
   end
 end

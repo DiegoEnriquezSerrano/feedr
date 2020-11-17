@@ -87,7 +87,7 @@
   display: grid;
   grid-auto-flow: column;
   grid-gap: 3px;
-  grid-template-columns: 4fr 2fr 1fr;
+  grid-template-columns: 4fr 2fr 40px;
 }
 
 .order-widget {
@@ -160,7 +160,7 @@ input[type="number"] {
 
 @media(min-width: 375px) {
   .meal_actions {
-    grid-template-columns: 4fr 3fr 1fr;
+    grid-template-columns: 4fr 3fr 40px;
   }
 }
 </style>

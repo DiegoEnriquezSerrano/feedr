@@ -9,7 +9,6 @@ class OrderMealsController < ApplicationController
       end
       @order_meal = OrderMeal.find_by(order: @order.id, meal: @meal.id) || @order.order_meals.new(order_params)
       @order_meal.total_servings = order_params[:total_servings]
-      @order.updated_at = Time.now
       if @order.save && @order_meal.save
         render json: @order.as_json, status: :created
       else
