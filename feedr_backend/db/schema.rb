@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_11_17_133417) do
+ActiveRecord::Schema.define(version: 2020_11_21_130323) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -83,6 +83,7 @@ ActiveRecord::Schema.define(version: 2020_11_17_133417) do
     t.string "caterer_business_cover_image"
     t.float "latitude"
     t.float "longitude"
+    t.integer "business_radius", default: 25, null: false
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end

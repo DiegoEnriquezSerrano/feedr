@@ -1,6 +1,14 @@
 class ApplicationController < ActionController::API
   include ::ActionController::Cookies
 
+  def remote_ip
+    if request.remote_ip == '127.0.0.1'
+      '24.1.229.151'
+    else
+      request.remote_ip
+    end
+  end
+
   def current_order
     if !authenticate_user.nil?
       user = User.find(authenticate_user[0]['user_id'])
