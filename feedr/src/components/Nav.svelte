@@ -1,6 +1,7 @@
 <script>
 
   import { SERVER_PORT, CLIENT_PORT } from '../javascript/functions.js';
+  import Search from  './Search.svelte';
 
   export let segment;
   export let user;
@@ -48,7 +49,7 @@
       <li><a href="/signup" on:click={close}>Sign Up</a></li>
       <li><a href="/login" on:click={close}>Login</a></li>
     {/if}
-    <li><a href="/search" on:click|preventDefault={getSearch}>Search</a></li>
+    <li><Search /></li>
     {#if user}
       <li>
         <a href="/order/new" on:click={close}>

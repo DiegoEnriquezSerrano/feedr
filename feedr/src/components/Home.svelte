@@ -21,7 +21,6 @@
 }
 
 .caterers {
-  margin-top: 3rem;
   display: grid;
   width: 100%;
   grid-auto-flow: row;

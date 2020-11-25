@@ -8,6 +8,7 @@ class User < ApplicationRecord
 
   has_many :meals, dependent: :delete_all
   has_many :orders
+  has_many :customer_addresses
 
   validates :first_name, presence: true, length: { minimum: 2, maximum: 25 }
   validates :last_name, presence: true, length: { minimum: 2, maximum: 35 }

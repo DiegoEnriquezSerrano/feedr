@@ -15,6 +15,7 @@ export async function preload(page) {
 
   import Splash from '../components/Splash.svelte';
   import Home from '../components/Home.svelte';
+  import Address from '../components/Address.svelte';
   import { onMount } from 'svelte';
 
   export let user;
@@ -39,6 +40,9 @@ export async function preload(page) {
 	<title>Feedr</title>
 </svelte:head>
 
+{#if user && user.caterer_user == false}
+  <Address {user}/>
+{/if}
 <main>
   {#if user && user.caterer_user == false}
     <Home {user} {caterers} />
@@ -50,6 +54,7 @@ export async function preload(page) {
 <style>
 
 main {
+  padding-top: 5.3rem;
   width: 100vw;
   height: 100%;
   min-height: 100vh;
