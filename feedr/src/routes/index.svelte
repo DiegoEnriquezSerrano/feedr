@@ -21,13 +21,28 @@ export async function preload(page) {
   export let user;
 
   let caterers = [];
+  let addresses = [];
+  let currentAddress = {};
 
-  if (user) user = user.user;
+  $: currentAddress;
+
+  if (user) {
+    user = user.user;
+    addresses = user.customer_addresses;
+    currentAddress = user.customer_addresses.find(ca => ca.default_address == true);
+  }
+
+  let updateCurrentAddress = (obj) => {
+    currentAddress = obj.detail;
+  }
 
   onMount(async () => {
     if (user && !user.caterer_user) {
+      let urlParams = "";
+      if (currentAddress != {}) urlParams = `?lat=${currentAddress.latitude}&lon=${currentAddress.longitude}`;
+      let url = `http://localhost:${SERVER_PORT}/caterers${urlParams}`;
       let opts = { method: 'GET', credentials: 'include' };
-      let res = await fetch(`http://localhost:${SERVER_PORT}/caterers`, opts);
+      let res = await fetch(url, opts);
       caterers = await res.json();
     } else if (user && user.caterer_user) {
       window.location = '/caterer';
@@ -41,11 +56,11 @@ export async function preload(page) {
 </svelte:head>
 
 {#if user && user.caterer_user == false}
-  <Address {user}/>
+  <Address {addresses} {currentAddress} on:updateCurrentAddress={updateCurrentAddress} />
 {/if}
 <main>
   {#if user && user.caterer_user == false}
-    <Home {user} {caterers} />
+    <Home {user} {caterers} {currentAddress} />
   {:else}
     <Splash />
   {/if}

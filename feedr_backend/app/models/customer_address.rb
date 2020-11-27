@@ -9,8 +9,8 @@ class CustomerAddress < ApplicationRecord
 
   private
   def set_default_address
-    customer_addresses = CustomerAddress.last.user.customer_addresses
-    if customer_addresses.size == 1 and !customer_addresses.last.default_address
+    user_addresses = CustomerAddress.last.user.customer_addresses
+    if user_addresses.size == 1 and !user_addresses.last.default_address
       CustomerAddress.last.update(default_address: true)
     end
   end
