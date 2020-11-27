@@ -13,6 +13,7 @@ export async function preload(page) {
 
 <script>
 
+  import currentAddressStore from '../stores/userStore.js';
   import Splash from '../components/Splash.svelte';
   import Home from '../components/Home.svelte';
   import Address from '../components/Address.svelte';
@@ -22,24 +23,26 @@ export async function preload(page) {
 
   let caterers = [];
   let addresses = [];
-  let currentAddress = {};
-
-  $: currentAddress;
 
   if (user) {
     user = user.user;
     addresses = user.customer_addresses;
-    currentAddress = user.customer_addresses.find(ca => ca.default_address == true);
+    $currentAddressStore = user.customer_addresses.find(ca => ca.default_address == true);
   }
 
-  let updateCurrentAddress = (obj) => {
-    currentAddress = obj.detail;
+  let updateCurrentAddress = async (obj) => {
+    let urlParams = "";
+    if ($currentAddressStore != {}) urlParams = `?lat=${$currentAddressStore.latitude}&lon=${$currentAddressStore.longitude}`;
+    let url = `http://localhost:${SERVER_PORT}/caterers${urlParams}`;
+    let opts = { method: 'GET', credentials: 'include' };
+    let res = await fetch(url, opts);
+    caterers = await res.json();
   }
 
   onMount(async () => {
     if (user && !user.caterer_user) {
       let urlParams = "";
-      if (currentAddress != {}) urlParams = `?lat=${currentAddress.latitude}&lon=${currentAddress.longitude}`;
+      if ($currentAddressStore != {}) urlParams = `?lat=${$currentAddressStore.latitude}&lon=${$currentAddressStore.longitude}`;
       let url = `http://localhost:${SERVER_PORT}/caterers${urlParams}`;
       let opts = { method: 'GET', credentials: 'include' };
       let res = await fetch(url, opts);
@@ -56,11 +59,11 @@ export async function preload(page) {
 </svelte:head>
 
 {#if user && user.caterer_user == false}
-  <Address {addresses} {currentAddress} on:updateCurrentAddress={updateCurrentAddress} />
+  <Address {addresses} on:updateCurrentAddress={updateCurrentAddress} />
 {/if}
 <main>
   {#if user && user.caterer_user == false}
-    <Home {user} {caterers} {currentAddress} />
+    <Home {caterers} />
   {:else}
     <Splash />
   {/if}

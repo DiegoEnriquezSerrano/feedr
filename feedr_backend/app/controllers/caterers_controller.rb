@@ -1,6 +1,6 @@
 class CaterersController < ApplicationController
   def index
-    @caterers = User.where(caterer_user: true).near([params[:lat],params[:lon]])
+    @caterers = User.where(caterer_user: true).near([params[:lat],params[:lon]], :business_radius)
     render json: @caterers.as_json(only: [
       :id,
       :caterer_business_name,

@@ -3,10 +3,6 @@
   import Caterer from './Caterer.svelte';
 
   export let caterers;
-  export let user;
-  export let currentAddress;
-
-  console.log(currentAddress);
   
 </script>
 

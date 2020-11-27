@@ -1,13 +1,14 @@
 <script>
 
   import { createEventDispatcher } from 'svelte';
+  import currentAddressStore from '../../stores/userStore.js';
 
   export let addresses;
-  export let currentAddress;
 
   let dispatch = createEventDispatcher();
 
   let newCurrentAddress = (obj) => {
+    currentAddressStore.update(address => { return obj });
     dispatch('newCurrentAddress', obj)
   }
 
@@ -16,7 +17,7 @@
 <div class="container">
   {#each addresses as address}
     <p
-      class:current={currentAddress.address == address.address}
+      class:current={$currentAddressStore.address == address.address}
       class="address "
       on:click={newCurrentAddress(address)}>
       {address.name}<br>

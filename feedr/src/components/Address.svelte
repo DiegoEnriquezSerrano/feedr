@@ -3,15 +3,13 @@
   import DropoffAddress from './addresses/DropoffAddress.svelte';
   import AddressSelector from './addresses/AddressSelector.svelte';
   import { createEventDispatcher } from 'svelte';
-
-  export let currentAddress;
+  
   export let addresses;
 
   let selectorExpander = false;
   let customerAddresses = addresses;
 
   $: customerAddresses;
-  $: currentAddress;
 
   let dispatch = createEventDispatcher();
   
@@ -26,9 +24,9 @@
 </script>
 
 <div class="current_address">
-  <DropoffAddress {currentAddress} on:toggleExpander={toggleExpander} />
+  <DropoffAddress on:toggleExpander={toggleExpander} />
   {#if selectorExpander}
-    <AddressSelector addresses={customerAddresses} {currentAddress} on:newCurrentAddress={updateCurrentAddress} />
+    <AddressSelector addresses={customerAddresses} on:newCurrentAddress={updateCurrentAddress} />
   {/if}
 </div>
 
