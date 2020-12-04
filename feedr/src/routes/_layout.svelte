@@ -20,6 +20,8 @@ export async function preload(page) {
 	export let user;
   $: user;
 
+  const mapScriptTag = "<script defer src=" + `https://maps.googleapis.com/maps/api/js?key=AIzaSyBpV1bos2tza-fAO-YMHANWI2hymGzy0ko&libraries=places` + ">" + "<" + "/script>";
+
   onMount(() => {
     user ? localStorage.setItem('feedrUser', JSON.stringify(user)) : localStorage.removeItem('feedrUser');
   });
@@ -29,3 +31,5 @@ export async function preload(page) {
 <Nav {segment} {user}/>
 
 <slot></slot>
+
+{@html mapScriptTag}

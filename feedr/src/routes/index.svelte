@@ -17,6 +17,7 @@ export async function preload(page) {
   import Splash from '../components/Splash.svelte';
   import Home from '../components/Home.svelte';
   import Address from '../components/Address.svelte';
+  import requests from '../javascript/requests.js';
   import { onMount } from 'svelte';
 
   export let user;
@@ -27,26 +28,18 @@ export async function preload(page) {
   if (user) {
     user = user.user;
     addresses = user.customer_addresses;
-    $currentAddressStore = user.customer_addresses.find(ca => ca.default_address == true);
+    if (Object.keys($currentAddressStore).length == 0) {
+      $currentAddressStore = user.customer_addresses.find(ca => ca.default_address == true);
+    }
   }
 
   let updateCurrentAddress = async (obj) => {
-    let urlParams = "";
-    if ($currentAddressStore != {}) urlParams = `?lat=${$currentAddressStore.latitude}&lon=${$currentAddressStore.longitude}`;
-    let url = `http://localhost:${SERVER_PORT}/caterers${urlParams}`;
-    let opts = { method: 'GET', credentials: 'include' };
-    let res = await fetch(url, opts);
-    caterers = await res.json();
+    caterers = await requests.getCaterers($currentAddressStore);
   }
 
   onMount(async () => {
     if (user && !user.caterer_user) {
-      let urlParams = "";
-      if ($currentAddressStore != {}) urlParams = `?lat=${$currentAddressStore.latitude}&lon=${$currentAddressStore.longitude}`;
-      let url = `http://localhost:${SERVER_PORT}/caterers${urlParams}`;
-      let opts = { method: 'GET', credentials: 'include' };
-      let res = await fetch(url, opts);
-      caterers = await res.json();
+      caterers = await requests.getCaterers($currentAddressStore);
     } else if (user && user.caterer_user) {
       window.location = '/caterer';
     };

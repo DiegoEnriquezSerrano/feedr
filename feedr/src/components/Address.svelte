@@ -18,6 +18,7 @@
   }
 
   let updateCurrentAddress = (obj) => {
+    toggleExpander();
     dispatch('updateCurrentAddress', obj.detail);
   }
 
@@ -26,7 +27,10 @@
 <div class="current_address">
   <DropoffAddress on:toggleExpander={toggleExpander} />
   {#if selectorExpander}
-    <AddressSelector addresses={customerAddresses} on:newCurrentAddress={updateCurrentAddress} />
+    <AddressSelector
+      addresses={customerAddresses}
+      on:toggleExpander={toggleExpander}
+      on:newCurrentAddress={updateCurrentAddress} />
   {/if}
 </div>
 

@@ -10,19 +10,21 @@
 
 </script>
 
-<div class="caterer" on:click={loadCaterer(caterer.id)}>
-  <div
-    class="caterer-cover-img"
-    style="background-image: url('http://localhost:{CLIENT_PORT}/uploads/{caterer.caterer_business_cover_image}')"
-    alt="{caterer.caterer_business_name} cover image"></div>
-  <div class="caterer-specs">
-    {caterer.caterer_business_name}
-    <div class="details">
-      <span>{caterer.caterer_business_address}</span><br>
-      <span>{caterer.caterer_business_city}, {caterer.caterer_business_state} {caterer.zip_code}</span>
-    </div><!--details-->
-  </div><!--caterer-specs-->
-</div><!--caterer-->
+<a href="/caterers/{caterer.id}">
+  <div class="caterer">
+    <div
+      class="caterer-cover-img"
+      style="background-image: url('http://localhost:{CLIENT_PORT}/uploads/{caterer.caterer_business_cover_image}')"
+      alt="{caterer.caterer_business_name} cover image"></div>
+    <div class="caterer-specs">
+      {caterer.caterer_business_name}
+      <div class="details">
+        <span>{caterer.caterer_business_address}</span><br>
+        <span>{caterer.caterer_business_city}, {caterer.caterer_business_state} {caterer.zip_code}</span>
+      </div><!--details-->
+    </div><!--caterer-specs-->
+  </div><!--caterer-->
+</a>
 
 <style>
 

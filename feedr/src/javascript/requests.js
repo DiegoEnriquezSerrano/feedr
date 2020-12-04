@@ -35,7 +35,17 @@ let submitOrder = async () => {
   }
 }
 
+let getCaterers = async (currentAddress) => {
+  let urlParams = "";
+  if (currentAddress != {}) urlParams = `?lat=${currentAddress.latitude}&lon=${currentAddress.longitude}`;
+  let url = `http://localhost:${SERVER_PORT}/caterers${urlParams}`;
+  let opts = { method: 'GET', credentials: 'include' };
+  let res = await fetch(url, opts);
+  return await res.json();
+}
+
 export default {
   authenticate,
   submitOrder,
+  getCaterers
 }
