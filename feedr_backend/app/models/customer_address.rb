@@ -11,7 +11,7 @@ class CustomerAddress < ApplicationRecord
   def set_default_address
     user_addresses = CustomerAddress.last.user.customer_addresses
     if user_addresses.size == 1 and !user_addresses.last.default_address
-      CustomerAddress.last.update(default_address: true)
+      user_addresses.last.update(default_address: true)
     end
   end
 end
