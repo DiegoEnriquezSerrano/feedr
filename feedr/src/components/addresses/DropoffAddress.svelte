@@ -20,6 +20,8 @@
     {#if $currentAddressStore !== undefined}
     Dropoff address: {$currentAddressStore.name ? $currentAddressStore.name + " -" : ""} {$currentAddressStore.address}
     &nbsp;
+    {:else}
+    Select your dropoff destination
     {/if}
   </div>
 </button>

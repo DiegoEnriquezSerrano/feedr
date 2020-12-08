@@ -55,6 +55,11 @@
         </a>
       </li>
       <li>
+        <a href="/addresses" on:click={close}>
+          <img class="icon" src="/icons/logout.svg" alt="Logout"> Addresses
+        </a>
+      </li>
+      <li>
         <a href="/logout" on:click|preventDefault={logout}>
           <img class="icon" src="/icons/logout.svg" alt="Logout"> Logout
         </a>
