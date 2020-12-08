@@ -48,9 +48,7 @@
     {#if !user}
       <li><a href="/signup" on:click={close}>Sign Up</a></li>
       <li><a href="/login" on:click={close}>Login</a></li>
-    {/if}
-    <li><Search /></li>
-    {#if user}
+    {:else}
       <li>
         <a href="/order/new" on:click={close}>
           <img class="icon" src="/icons/shopping_bag.svg" alt="Current Order"> Order

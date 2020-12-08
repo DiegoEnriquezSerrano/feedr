@@ -39,7 +39,7 @@ export async function preload(page) {
 
   onMount(async () => {
     if (user && !user.caterer_user) {
-      caterers = await requests.getCaterers($currentAddressStore);
+      $currentAddressStore == undefined ? caterers = [] : caterers = await requests.getCaterers($currentAddressStore);
     } else if (user && user.caterer_user) {
       window.location = '/caterer';
     };
@@ -65,7 +65,6 @@ export async function preload(page) {
 <style>
 
 main {
-  padding-top: 5.3rem;
   width: 100vw;
   height: 100%;
   min-height: 100vh;

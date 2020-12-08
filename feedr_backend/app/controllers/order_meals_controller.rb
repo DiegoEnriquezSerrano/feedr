@@ -3,12 +3,8 @@ class OrderMealsController < ApplicationController
   def create
     if !authenticate_user.nil?
       @order = current_order
-      @meal = Meal.find(order_params[:meal_id])
-      if @order.caterer_id.nil?
-        @order.caterer_id = @meal.user_id
-      end
-      @order_meal = OrderMeal.find_by(order: @order.id, meal: @meal.id) || @order.order_meals.new(order_params)
-      @order_meal.total_servings = order_params[:total_servings]
+      @order.caterer_id ||= Meal.find(order_params[:meal_id]).user_id
+      @order_meal = @order.set_order_meal(order_params[:meal_id], order_params[:total_servings])
       if @order.save && @order_meal.save
         render json: @order.as_json, status: :created
       else

@@ -17,8 +17,10 @@
     <path fill-rule="evenodd" clip-rule="evenodd" d="M12 11C12.8284 11 13.5 10.3284 13.5 9.5C13.5 8.67157 12.8284 8 12 8C11.1716 8 10.5 8.67157 10.5 9.5C10.5 10.3284 11.1716 11 12 11ZM12 13C13.933 13 15.5 11.433 15.5 9.5C15.5 7.567 13.933 6 12 6C10.067 6 8.5 7.567 8.5 9.5C8.5 11.433 10.067 13 12 13Z" style="fill: rgb(86,86,86)"></path>
   </svg>
   <div class="current_address">
-    Dropoff address: {$currentAddressStore.name} - {$currentAddressStore.address}
+    {#if $currentAddressStore !== undefined}
+    Dropoff address: {$currentAddressStore.name ? $currentAddressStore.name + " -" : ""} {$currentAddressStore.address}
     &nbsp;
+    {/if}
   </div>
 </button>
 

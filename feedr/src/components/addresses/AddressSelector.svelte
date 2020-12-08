@@ -7,6 +7,10 @@
   export let addresses;
 
   let addressInput;
+  let usAddress;
+  let latInput;
+  let lonInput;
+
   let dispatch = createEventDispatcher();
 
   let newCurrentAddress = (obj) => {
@@ -22,12 +26,8 @@
     addressInput.value = null;
   }
 
-  let preventDefault = (e) => {
-    e.preventDefault();
-  }
-
   onMount(() => {
-    autocomplete(addressInput);
+    autocomplete(addressInput, usAddress, latInput, lonInput);
   })
 
 </script>
@@ -35,6 +35,9 @@
   <div class="container">
     <div class="address_search">
       <input type="text" id="address" name="location[address]" bind:this={addressInput}>
+      <input type="hidden" id="us_address" name="us_address" value="" bind:this={usAddress}>
+      <input type="hidden" id="lat" name="lat" value="" bind:this={latInput}>
+      <input type="hidden" id="lon" name="lon" value="" bind:this={lonInput}>
       <span class="marker">
         <svg width="0" height="0" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" style="flex-shrink: 0;">
           <path fill-rule="evenodd" clip-rule="evenodd" d="M10.5257 21.3514L12 20L13.4743 21.3514C13.0955 21.7647 12.5606 22 12 22C11.4394 22 10.9045 21.7647 10.5257 21.3514ZM13.2949 18.4463C12.5464 19.4039 12 20 12 20C12 20 11.4535 19.4039 10.7051 18.4463C9.07919 16.3658 6.5 12.5792 6.5 9.49242C6.5 6.45904 8.96243 4 12 4C15.0376 4 17.5 6.45904 17.5 9.49242C17.5 12.5792 14.9208 16.3658 13.2949 18.4463ZM13.4743 21.3514C13.4743 21.3514 13.4743 21.3514 12 20C10.5257 21.3514 10.5257 21.3514 10.5257 21.3514L10.5227 21.3482L10.5177 21.3427L10.5018 21.3252L10.4474 21.2647C10.4014 21.2133 10.3363 21.1398 10.2548 21.0461C10.0919 20.8589 9.86301 20.5903 9.59004 20.2553C9.04587 19.5873 8.31764 18.6441 7.58566 17.5456C6.85705 16.4522 6.10151 15.1704 5.5227 13.8275C4.95169 12.5026 4.5 10.9984 4.5 9.49242C4.5 5.35187 7.86046 2 12 2C16.1395 2 19.5 5.35187 19.5 9.49242C19.5 10.9984 19.0483 12.5026 18.4773 13.8275C17.8985 15.1704 17.1429 16.4522 16.4143 17.5456C15.6824 18.6441 14.9541 19.5873 14.41 20.2553C14.137 20.5903 13.9081 20.8589 13.7452 21.0461C13.6637 21.1398 13.5986 21.2133 13.5526 21.2647L13.4982 21.3252L13.4823 21.3427L13.4773 21.3482L13.4743 21.3514Z" style="fill: rgb(86,86,86)"></path>
@@ -43,7 +46,7 @@
       </span>
       <button class="clear " on:click={clear}>
         <svg class="icon" width="21px" height="20px" viewBox="0 0 21 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-          <title>Close</title>
+          <title>Clear</title>
           <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
             <g transform="translate(-419.000000, -240.000000)" fill="#59617d">
               <g transform="translate(56.000000, 160.000000)">
@@ -54,6 +57,15 @@
         </svg>
       </button>
     </div><!--address_search-->
+    <button
+      class="button primary"
+      on:click={newCurrentAddress({
+        address: usAddress.value,
+        latitude: Number(latInput.value),
+        longitude: Number(lonInput.value)
+      })}>
+      Search in this area
+    </button>
     <div class="saved_addresses">
       <div class="saved_addresses_heading">
         <div class="spacer"></div>
@@ -161,7 +173,25 @@ p.address:hover,
 }
 
 .saved_addresses_heading {
-  
+  display: grid;
+  grid-auto-flow: column;
+  align-items: center;
+  justify-content: center;
+  justify-items: center;
+  grid-template-columns: 1fr 2fr 1fr;
+  margin: 10px;
+}
+
+.spacer {
+  border: thin solid #888;
+  min-width: 100%;
+  margin: 10px;
+}
+
+.button.primary {
+  justify-self: center;
+  font-size: 0.8rem;
+  padding: 10px;
 }
 
 </style>

@@ -11,7 +11,6 @@ describe "signing up a new user", js: true do
       fill_in 'password_confirmation', with: 'password'
     end
     Capybara.page.first('button[type="submit"]').click
-    sleep 0.1
     expect(page).to have_selector '.caterers'
   end
 end
