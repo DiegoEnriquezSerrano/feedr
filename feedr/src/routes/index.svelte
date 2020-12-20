@@ -28,7 +28,7 @@ export async function preload(page) {
   if (user) {
     user = user.user;
     addresses = user.customer_addresses;
-    if (Object.keys($currentAddressStore).length == 0) {
+    if ($currentAddressStore !== undefined && Object.keys($currentAddressStore).length == 0) {
       $currentAddressStore = user.customer_addresses.find(ca => ca.default_address == true);
     }
   }

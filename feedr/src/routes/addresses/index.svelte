@@ -13,7 +13,7 @@ export async function preload(page) {
 
 <script>
 
-  import SavedAddresses from '../../components/address/SavedAddresses.svelte';
+  import SavedAddresses from '../../components/addresses/SavedAddresses.svelte';
 
   export let user;
 
@@ -31,7 +31,6 @@ export async function preload(page) {
 </svelte:head>
 
 <main>
-  <h2>Your saved addresses</h2>
   <SavedAddresses {addresses} />
 </main>
 
@@ -43,7 +42,6 @@ main {
   min-height: 100vh;
   margin: 0;
   display: grid;
-  color: #fdfdfd;
   align-content: start;
   justify-items: center;
   grid-auto-flow: row;
