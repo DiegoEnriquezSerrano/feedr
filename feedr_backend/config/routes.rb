@@ -15,6 +15,7 @@ Rails.application.routes.draw do
   resources :meals
   resources :orders
   resources :order_meals, only: [:create]
+  resources :customer_addresses
   resource  :new_order, only: [:show, :create]
 
   devise_scope :user do

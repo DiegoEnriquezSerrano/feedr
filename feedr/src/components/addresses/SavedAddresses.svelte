@@ -13,20 +13,23 @@
     showModal = true;
   };
 
+  let closeModal = (obj) => {
+    addresses = obj.detail || addresses;
+    showModal = false;
+  };
+
   let newAddress = (e) => { openModal(false) };
 
   let editAddress = (e) => {
-    let checkedAddress = Array.from(savedAddresses.childNodes).find(elem => elem.children.address.checked == true);
-    let checkedAddressId = checkedAddress.children[0].value;
-    checkedAddress = checkedAddress.children[1].children[1].innerText
-      .split(',')
-      .map((i) => { return i.trim() });
+    let checkedAddress = addresses[Array.from(savedAddresses.childNodes).findIndex(elem => elem.children.address.checked == true)];
+    let splitAddress = checkedAddress.address.split(',').map((i) => { return i.trim() });
     openModal({
-      streetAddress: checkedAddress[0],
-      city: checkedAddress[1],
-      state: checkedAddress[2],
-      zip: checkedAddress[3],
-      id: checkedAddressId
+      streetAddress: splitAddress[0],
+      city: splitAddress[1],
+      state: splitAddress[2],
+      zip: splitAddress[3],
+      id: checkedAddress.id,
+      name: checkedAddress.name
     });
   };
 
@@ -57,7 +60,7 @@
     {/if}
   </section>
   {#if showModal}
-    <EditAddressModal address={updateAddress} />
+    <EditAddressModal address={updateAddress} on:close={closeModal} />
   {/if}
 
 <style>
