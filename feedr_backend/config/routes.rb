@@ -25,4 +25,5 @@ Rails.application.routes.draw do
   get 'search', to: 'caterers#search'
   get '/', to: 'caterers#search'
   get '/current_order', to: 'new_orders#quantities'
+  put '/customer_addresses/make_default/:id', to: 'customer_addresses#update_default'
 end

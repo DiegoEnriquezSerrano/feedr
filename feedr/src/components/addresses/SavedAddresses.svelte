@@ -2,6 +2,8 @@
 
   import currentAddressStore from '../../stores/userStore.js';
   import EditAddressModal from './EditAddressModal.svelte';
+  import requests from '../../javascript/requests.js';
+
   export let addresses;
 
   let showModal = false;
@@ -33,6 +35,18 @@
     });
   };
 
+  let setDefault = async (e) => {
+    let checkedAddress = addresses[Array.from(savedAddresses.childNodes).findIndex(elem => elem.children.address.checked == true)];
+    let response = await requests.updateDefaultAddress(checkedAddress);
+    console.log(response)
+  }
+
+  let deleteAddress = async (e) => {
+    let checkedAddress = addresses[Array.from(savedAddresses.childNodes).findIndex(elem => elem.children.address.checked == true)];
+    let response = await requests.deleteAddress(checkedAddress);
+    console.log(response)
+  }
+
 </script>
 
   <section class="saved-addresses">
@@ -42,9 +56,9 @@
     {#if addresses.length > 0}
       <div class="address-actions">
         <span class="table-label">Saved addresses</span>
-        <button class="pill primary">Make Default</button>
+        <button class="pill primary" on:click={setDefault}>Make Default</button>
         <button class="pill secondary" on:click={editAddress}>Edit</button>
-        <button class="pill danger">Delete</button>
+        <button class="pill danger" on:click={deleteAddress}>Delete</button>
       </div>
       <form bind:this={savedAddresses}>
         {#each addresses as address}

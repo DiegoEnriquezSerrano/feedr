@@ -7,6 +7,11 @@ class CustomerAddress < ApplicationRecord
 
   after_validation :geocode
 
+  def update_default_address
+    addresses = CustomerAddress.where(user: user).where(default_address: true).update(default_address: false)
+    self.update(default_address: true)
+  end
+
   private
   def set_default_address
     user_addresses = user.customer_addresses

@@ -59,9 +59,34 @@ let editAddress = async (body) => {
   return await fetch(url, params);
 };
 
+let updateDefaultAddress = async (body) => {
+  console.log(body);
+  let url = `http://localhost:${SERVER_PORT}/customer_addresses/make_default/${body.id}`;
+  let params = {
+    method: 'PUT',
+    credentials: 'include',
+    body: JSON.stringify(body),
+    headers: { "Content-Type": "application/json" }
+  };
+  return await fetch(url, params);
+};
+
+let deleteAddress = async (body) => {
+  console.log(body);
+  let url = `http://localhost:${SERVER_PORT}/customer_addresses/${body.id}`;
+  let params = {
+    method: 'DELETE',
+    credentials: 'include',
+    headers: { "Content-Type": "application/json" }
+  };
+  return await fetch(url, params);
+};
+
 export default {
   authenticate,
   submitOrder,
   getCaterers,
-  editAddress
+  editAddress,
+  updateDefaultAddress,
+  deleteAddress
 }
