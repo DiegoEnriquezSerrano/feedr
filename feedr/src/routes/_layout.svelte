@@ -15,6 +15,8 @@ export async function preload(page) {
 
   import { onMount } from 'svelte';
 	import Nav from '../components/Nav.svelte';
+  import { messageStore } from '../stores/messageStore.js';
+  import Toast from '../components/Toast.svelte';
 
 	export let segment;
 	export let user;
@@ -31,5 +33,8 @@ export async function preload(page) {
 <Nav {segment} {user}/>
 
 <slot></slot>
+{#each $messageStore as response}
+  <Toast {response} />
+{/each}
 
 {@html mapScriptTag}

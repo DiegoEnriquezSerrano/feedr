@@ -3,6 +3,7 @@
   import currentAddressStore from '../../stores/userStore.js';
   import EditAddressModal from './EditAddressModal.svelte';
   import requests from '../../javascript/requests.js';
+  import { messageStore } from '../../stores/messageStore.js';
 
   export let addresses;
 
@@ -37,9 +38,13 @@
 
   let setDefault = async (e) => {
     let checkedAddress = addresses[Array.from(savedAddresses.childNodes).findIndex(elem => elem.children.address.checked == true)];
-    let response = await requests.updateDefaultAddress(checkedAddress);
-    console.log(response)
-  }
+    let res = await requests.updateDefaultAddress(checkedAddress);
+    if (res.status == 200 || res.status == 201) {
+      messageStore.update((current) => {
+        return [...current, { status: res.status, message: 'Default address successfully updated.' }];
+      });
+    };
+  };
 
   let deleteAddress = async (e) => {
     let checkedAddress = addresses[Array.from(savedAddresses.childNodes).findIndex(elem => elem.children.address.checked == true)];

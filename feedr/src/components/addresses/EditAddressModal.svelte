@@ -3,10 +3,9 @@
   import { createEventDispatcher, onMount } from 'svelte';
   import requests from '../../javascript/requests.js';
   import { SERVER_PORT, CLIENT_PORT } from '../../javascript/functions.js';
+  import { messageStore } from '../../stores/messageStore.js';
 
   export let address;
-
-  console.log(address);
 
   let body = {};
   let streetAddress = address.streetAddress || null;
@@ -24,9 +23,13 @@
       name,
       addressId
     };
-    let response = await requests.editAddress(body);
-    if (response.status == 200 || response.status == 201) {
-      let addresses = await response.json()
+    
+    let res = await requests.editAddress(body);
+    if (res.status == 200 || res.status == 201) {
+      let addresses = await res.json();
+      messageStore.update((current) => {
+        return [...current, { status: res.status, message: 'Success!' }];
+      });
       dispatch('close', addresses);
     };
   }
