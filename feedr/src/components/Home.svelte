@@ -3,7 +3,6 @@
   import Caterer from './Caterer.svelte';
 
   export let caterers;
-  export let user;
   
 </script>
 
@@ -21,13 +20,13 @@
 }
 
 .caterers {
-  margin-top: 3rem;
   display: grid;
   width: 100%;
   grid-auto-flow: row;
   grid-gap: 10px;
   padding: 10px;
   max-width: 1000px;
+  padding-top: 5.5rem;
 }
 
 </style>

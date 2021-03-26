@@ -80,3 +80,19 @@ body {
   grid-template-columns: 1fr minmax(35px, 33%);
   grid-gap: 2px;
 }
+
+.pill.primary {
+  background-image: linear-gradient(to top, rgb(224, 159, 62), rgba(224,190,140,0.6));
+  color: black;
+  font-weight: normal;
+}
+
+.pill.secondary {
+  background: #fafafa;
+  color: rgb(224,159,62);
+}
+
+.pill.danger {
+  background: #f16758;
+  color: white;
+}

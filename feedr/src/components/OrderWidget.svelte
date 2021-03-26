@@ -34,7 +34,8 @@
 
   onMount(() => {
     if (localStorage.getItem('feedrUser')) {
-      userLoggedIn = JSON.parse(localStorage.getItem('feedUser'));
+      console.log('got it')
+      userLoggedIn = true;
     };
   })
 

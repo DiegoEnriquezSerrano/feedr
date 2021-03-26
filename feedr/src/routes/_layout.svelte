@@ -15,10 +15,14 @@ export async function preload(page) {
 
   import { onMount } from 'svelte';
 	import Nav from '../components/Nav.svelte';
+  import { messageStore } from '../stores/messageStore.js';
+  import Toast from '../components/Toast.svelte';
 
 	export let segment;
 	export let user;
   $: user;
+
+  const mapScriptTag = "<script defer src=" + `https://maps.googleapis.com/maps/api/js?key=AIzaSyBpV1bos2tza-fAO-YMHANWI2hymGzy0ko&libraries=places` + ">" + "<" + "/script>";
 
   onMount(() => {
     user ? localStorage.setItem('feedrUser', JSON.stringify(user)) : localStorage.removeItem('feedrUser');
@@ -29,3 +33,8 @@ export async function preload(page) {
 <Nav {segment} {user}/>
 
 <slot></slot>
+{#each $messageStore as response}
+  <Toast {response} />
+{/each}
+
+{@html mapScriptTag}

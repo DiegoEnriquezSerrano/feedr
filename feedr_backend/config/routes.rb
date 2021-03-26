@@ -15,6 +15,7 @@ Rails.application.routes.draw do
   resources :meals
   resources :orders
   resources :order_meals, only: [:create]
+  resources :customer_addresses
   resource  :new_order, only: [:show, :create]
 
   devise_scope :user do
@@ -24,4 +25,5 @@ Rails.application.routes.draw do
   get 'search', to: 'caterers#search'
   get '/', to: 'caterers#search'
   get '/current_order', to: 'new_orders#quantities'
+  put '/customer_addresses/make_default/:id', to: 'customer_addresses#update_default'
 end

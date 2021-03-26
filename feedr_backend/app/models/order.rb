@@ -15,6 +15,12 @@ class Order < ApplicationRecord
     order_meals.collect{ |order_meal| order_meal.valid? ? order_meal.unit_price*order_meal.total_servings : 0}.sum
   end
 
+  def set_order_meal(meal_id, total_servings)
+    order_meal = order_meals.find_by(meal_id: meal_id) || order_meals.new(meal_id: meal_id)
+    order_meal.total_servings = total_servings
+    return order_meal
+  end
+
   private
   def set_subtotal
     self[:subtotal] = subtotal

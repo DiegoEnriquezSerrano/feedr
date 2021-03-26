@@ -1,6 +1,6 @@
 class CaterersController < ApplicationController
   def index
-    @caterers = User.where(caterer_user: true)
+    @caterers = User.where(caterer_user: true).near([params[:lat],params[:lon]], :business_radius)
     render json: @caterers.as_json(only: [
       :id,
       :caterer_business_name,
@@ -36,7 +36,19 @@ class CaterersController < ApplicationController
   def search
     if !authenticate_user.nil?
       @user = User.find(authenticate_user[0]['user_id'])
-      render json: { user: @user.as_json(only: [:id, :first_name, :caterer_user]) }, status: :ok
+      render json: { user: @user.as_json(
+        include: {
+            customer_addresses: { except: [
+              :created_at,
+              :updated_at,
+              :user_id
+            ]}
+          },
+        only: [
+          :id,
+          :first_name,
+          :caterer_user
+        ]) }, status: :ok
     else
       render json: { error: 'Unauthorized request' }, status: :unauthorized
     end
